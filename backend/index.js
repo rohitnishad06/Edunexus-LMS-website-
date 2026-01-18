@@ -4,6 +4,7 @@ import connectDb from "./config/connectDb.js"
 import cookieParser from "cookie-parser";
 import authRouter from "./routes/authRoute.js";
 import cors from "cors";
+import userRouter from "./routes/userRoute.js";
 
 // env config
 dotenv.config();
@@ -20,11 +21,8 @@ app.use(cors({
 }))
 
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
-// Root route to test if server is running
-app.get("/", (req, res) => {
-  res.send("server is working properly...");
-});
 
 // Start Server & Connect Database
 app.listen(port, () => {
