@@ -9,6 +9,7 @@ import axios from "axios";
 import { serverUrl } from "../App";
 import { toast } from "react-toastify";
 import { setUserData } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
 
 function Login() {
   const [show, setShow] = useState(false);
@@ -16,7 +17,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const dispatch = userDispatch()
+  const dispatch = useDispatch()
 
   const handleLogin = async () => {
     if (!email || !password) {

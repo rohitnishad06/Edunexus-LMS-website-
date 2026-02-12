@@ -1,10 +1,8 @@
 import React from 'react'
 
-function Profile() {
+const Profile = () => {
   return (
-    <div>
-      profile page
-    </div>
+    <div>Profile</div>
   )
 }
 
