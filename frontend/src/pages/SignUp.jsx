@@ -8,6 +8,7 @@ import axios from "axios";
 import { serverUrl } from "../App";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
+import { setUserData } from "../redux/userSlice";
 
 function SignUp() {
   const [show, setShow] = useState(false);
@@ -18,6 +19,7 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("student");
   const [loading, setLoading] = useState(false);
+  const dispatch = userDispatch()
 
   const handleSignup = async () => {
     if (!name || !email || !password) {
@@ -31,8 +33,9 @@ function SignUp() {
         `${serverUrl}/api/auth/signup`,
         { name, email, password, role },
         { withCredentials: true }
+       
       );
-
+       dispatch(setUserData(XPathResult.data))
       toast.success("Signup successful");
       navigate("/");
     } catch (error) {
