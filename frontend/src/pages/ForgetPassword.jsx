@@ -103,9 +103,15 @@ const ForgetPassword = () => {
 
           <button
             onClick={sendOtp}
-            className="w-full bg-black text-white py-2 rounded"
+            className="w-full bg-black text-white py-2 rounded cursor-pointer"
           >
             {loading ? "Sending..." : "Send OTP"}
+          </button>
+          <button
+            className="w-full text-black bg-white py-2 rounded border border-gray-500 mt-2 cursor-pointer"
+            onClick={()=>navigate('/login')}
+          >
+            Back To login
           </button>
         </div>
       )}
@@ -134,6 +140,12 @@ const ForgetPassword = () => {
           >
             {loading ? "Verifying..." : "Verify OTP"}
           </button>
+          <button
+            className="w-full text-black bg-white py-2 rounded border border-gray-500 mt-2 cursor-pointer"
+            onClick={()=>navigate('/login')}
+          >
+            Back To login
+          </button>
         </div>
       )}
 
@@ -157,6 +169,12 @@ const ForgetPassword = () => {
             className="w-full bg-black text-white py-2 rounded"
           >
             {loading ? "Updating..." : "Reset Password"}
+          </button>
+          <button
+            className="w-full text-black bg-white py-2 rounded border border-gray-500 mt-2 cursor-pointer"
+            onClick={()=>navigate('/login')}
+          >
+            Back To login
           </button>
         </div>
       )}

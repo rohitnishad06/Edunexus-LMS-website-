@@ -17,16 +17,11 @@ function App() {
         <>
         <ToastContainer />
             <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='/signup' element={!userData ? <SignUp/>
-                 : <Navigate to ={"/"}/> } />
-                <Route path='/login' element={ <Login/>}/>
-                <Route path='/profile' element={!userData ? <Profile/>
-                 : <Navigate to={"/signup"}/>}/>
-                <Route 
-                    path='/forget' 
-                    element={!userData ? <ForgetPassword/> : <Navigate to={"/"}/>}
-                />
+                <Route path='/' element={userData ? <Home/>:<Navigate to ={"/signup"}/>}/>
+                <Route path='/signup' element={!userData ? <SignUp/>: <Navigate to ={"/"}/> } />
+                <Route path='/login' element={!userData ? <Login/> : <Navigate to ={"/"}/>}/>
+                <Route path='/profile' element={userData ? <Profile/>: <Navigate to={"/login"}/>}/>
+                <Route path='/forget' element={!userData ? <ForgetPassword/> : <Navigate to={"/"}/>}/>
 
             </Routes>
         </>
