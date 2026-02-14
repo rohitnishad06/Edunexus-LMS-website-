@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 import { setUserData } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 
+
+
 function Login() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ function Login() {
 
     setLoading(true);
     try {
-      await axios.post(
+      const  result = await axios.post(
         `${serverUrl}/api/auth/login`,
         { email, password },
         { withCredentials: true }
@@ -105,7 +107,8 @@ function Login() {
           </button>
 
           {/* FORGOT */}
-          <span className="text-[13px] cursor-pointer text-[#585757]">
+          <span className="text-[13px] cursor-pointer text-[#585757]" 
+          onClick={()=>navigate("/forget")}>
             Forgot Password?
           </span>
 
@@ -121,7 +124,7 @@ function Login() {
           {/* GOOGLE */}
           <div
             className="w-[80%] h-[35px] border border-black rounded-[5px]
-                        flex items-center justify-center gap-2"
+             flex items-center justify-center gap-2"
           >
             <img src={google} className="w-[25px]" alt="google" />
             <span className="text-[18px]">Google</span>
