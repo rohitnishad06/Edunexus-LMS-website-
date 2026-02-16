@@ -6,10 +6,7 @@ import sendMail from "../config/sendMail.js";
 
 
 
-// ============================
 // SIGN UP CONTROLLER
-// Route: POST /api/auth/signup
-// Description: Register a new user
 // ============================
 export const signUp = async (req, res) => {
   try {
@@ -63,10 +60,7 @@ export const signUp = async (req, res) => {
 };
 
 
-// ============================
 // LOGIN CONTROLLER
-// Route: POST /api/auth/login
-// Description: Authenticate user & issue token
 // ============================
 export const login = async (req, res) => {
   try {
@@ -106,10 +100,8 @@ export const login = async (req, res) => {
 };
 
 
-// ============================
+
 // LOGOUT CONTROLLER
-// Route: POST /api/auth/logout
-// Description: Clear token cookie to logout user
 // ============================
 export const logOut = async (req, res) => {
   try {
@@ -125,6 +117,8 @@ export const logOut = async (req, res) => {
   }
 };
 
+// Send OTP CONTROLLER
+// ============================
 export const sendOTP = async (req, res) => {
   try {
     const { email } = req.body;
@@ -166,6 +160,8 @@ export const sendOTP = async (req, res) => {
   }
 };
 
+// verify otp CONTROLLER
+// ============================
 export const verifyOTP = async (req, res) => {
   try {
     const { email, otp } = req.body;
@@ -194,7 +190,8 @@ export const verifyOTP = async (req, res) => {
   }
 };
 
-
+// Reset Password CONTROLLER
+// ============================
 export const resetPassword = async (req, res) => {
   try {
     const { email, newPassword } = req.body;
@@ -224,3 +221,37 @@ export const resetPassword = async (req, res) => {
     return res.status(500).json({ message: "Reset password error" });
   }
 };
+
+
+// Google Auth
+// ============================
+export const googleAuth = async (req, res) => {
+  try {
+    const {email, name ,role} = req.body;
+
+    let user = await userModel.findOne({email});
+
+    if(!user){
+      user =  await userModel.create({email, name ,role})
+    }
+
+    // generating cookie
+    let token 
+    try {
+      token = genToken(user._id);
+    } catch (error) {
+      console.log(error)
+    }
+    res.cookie("token", token, {
+      secure: "false", 
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    });
+
+    res.status(201).json(user);
+
+  } catch (error) {
+    res.status(201).json(`Google Auth error ${error}`);
+  }
+}
