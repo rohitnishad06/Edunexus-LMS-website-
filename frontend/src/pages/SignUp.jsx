@@ -9,18 +9,20 @@ import { serverUrl } from "../App";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import { setUserData } from "../redux/userSlice";
+import { signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
+import { auth, provider } from "../../utils/firebase";
 
 function SignUp() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("student");
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch()
 
   const handleSignup = async () => {
     if (!name || !email || !password) {
@@ -30,19 +32,28 @@ function SignUp() {
 
     setLoading(true);
     try {
-      await axios.post(
+      const res = await axios.post(
         `${serverUrl}/api/auth/signup`,
         { name, email, password, role },
         { withCredentials: true }
-       
       );
-       dispatch(setUserData(XPathResult.data))
+
+      dispatch(setUserData(res.data));
       toast.success("Signup successful");
       navigate("/");
     } catch (error) {
       toast.error(error.response?.data?.message || "Signup failed");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const googleSignUp = async () => {
+    try {
+      const response = await signInWithPopup(auth, provider);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -128,8 +139,7 @@ function SignUp() {
 
           {/* BUTTON */}
           <button
-            className="w-[80%] h-[35px] bg-black text-white text-lg rounded-[5px]
-                       flex items-center justify-center"
+            className="w-[80%] h-[35px] bg-black text-white text-lg rounded-[5px] flex items-center justify-center"
             onClick={handleSignup}
             disabled={loading}
           >
@@ -146,8 +156,10 @@ function SignUp() {
           </div>
 
           {/* GOOGLE */}
-          <div className="w-[80%] h-[35px] border border-black rounded-[5px]
-                          flex items-center justify-center gap-2">
+          <div
+            className="w-[80%] h-[35px] border border-black rounded-[5px] flex items-center justify-center cursor-pointer"
+            onClick={googleSignUp}
+          >
             <img src={google} className="w-[25px]" alt="google" />
             <span className="text-[18px]">Google</span>
           </div>
