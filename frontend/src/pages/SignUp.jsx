@@ -24,20 +24,20 @@ function SignUp() {
   const [role, setRole] = useState("student");
   const [loading, setLoading] = useState(false);
 
+
+  // handle signUp
   const handleSignup = async () => {
     if (!name || !email || !password) {
       toast.error("All fields are required");
       return;
     }
-
     setLoading(true);
     try {
       const res = await axios.post(
         `${serverUrl}/api/auth/signup`,
         { name, email, password, role },
-        { withCredentials: true }
+        { withCredentials: true },
       );
-
       dispatch(setUserData(res.data));
       toast.success("Signup successful");
       navigate("/");
@@ -48,12 +48,21 @@ function SignUp() {
     }
   };
 
+  // handle google auth 
   const googleSignUp = async () => {
+    const response = await signInWithPopup(auth, provider);
     try {
-      const response = await signInWithPopup(auth, provider);
-      console.log(response);
+      const result = await axios.post(
+        `${serverUrl}/api/auth/googleauth`,
+        {name:response.user.displayName, email:response.user.email,role },
+        { withCredentials: true }
+      );
+      dispatch(setUserData(result.data))
+      toast.success("Signup successful");
+      navigate("/");
+      setLoading(false)
     } catch (error) {
-      console.log(error);
+      toast.error(error.response?.data?.message || "Signup failed");
     }
   };
 
@@ -67,9 +76,7 @@ function SignUp() {
         <div className="md:w-[50%] w-full h-full flex flex-col items-center justify-center gap-4">
           <div className="text-center">
             <h1 className="font-semibold text-2xl">Let's get started</h1>
-            <h2 className="text-[#999797] text-[18px]">
-              Create your account
-            </h2>
+            <h2 className="text-[#999797] text-[18px]">Create your account</h2>
           </div>
 
           {/* NAME */}
@@ -179,9 +186,7 @@ function SignUp() {
         {/* RIGHT */}
         <div className="w-[50%] h-full bg-black rounded-r-2xl hidden md:flex flex-col items-center justify-center">
           <img src={logo} alt="logo" className="w-100 shadow-2xl" />
-          <span className="text-2xl text-white mt-2">
-            VIRTUAL COURSES
-          </span>
+          <span className="text-2xl text-white mt-2">VIRTUAL COURSES</span>
         </div>
       </form>
     </div>

@@ -22,7 +22,8 @@ const isAuth = async (req, res, next) => {
     // Verify token using JWT secret
     const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
 
-    // If verification fails, deny access
+    // If verific
+    // ]ation fails, deny access
     if (!verifyToken) {
       return res.status(403).json({ message: "User token is invalid" });
     }

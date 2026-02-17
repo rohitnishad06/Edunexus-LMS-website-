@@ -10,8 +10,8 @@ import { serverUrl } from "../App";
 import { toast } from "react-toastify";
 import { setUserData } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
-
-
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../utils/firebase";
 
 function Login() {
   const [show, setShow] = useState(false);
@@ -19,28 +19,46 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
+
+  // handle login 
   const handleLogin = async () => {
     if (!email || !password) {
       toast.error("Email and password are required");
       return;
     }
-
     setLoading(true);
     try {
-      const  result = await axios.post(
+      const result = await axios.post(
         `${serverUrl}/api/auth/login`,
         { email, password },
-        { withCredentials: true }
+        { withCredentials: true },
       );
-      dispatch(setUserData(result.data))
+      dispatch(setUserData(result.data));
       toast.success("Login successful");
       navigate("/");
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
+    }
+  };
+
+  // handle google auth 
+  const googleSignUp = async () => {
+    const response = await signInWithPopup(auth, provider);
+    try {
+      const result = await axios.post(
+        `${serverUrl}/api/auth/googleauth`,
+        { email: response.user.email },
+        { withCredentials: true },
+      );
+      toast.success("Login successful");
+      navigate("/");
+      dispatch(setUserData(result.data));
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Login failed");
     }
   };
 
@@ -107,8 +125,10 @@ function Login() {
           </button>
 
           {/* FORGOT */}
-          <span className="text-[13px] cursor-pointer text-[#585757]" 
-          onClick={()=>navigate("/forget")}>
+          <span
+            className="text-[13px] cursor-pointer text-[#585757]"
+            onClick={() => navigate("/forget")}
+          >
             Forgot Password?
           </span>
 
@@ -124,7 +144,8 @@ function Login() {
           {/* GOOGLE */}
           <div
             className="w-[80%] h-[35px] border border-black rounded-[5px]
-             flex items-center justify-center gap-2"
+             flex items-center justify-center gap-2 cursor-pointer"
+            onClick={googleSignUp}
           >
             <img src={google} className="w-[25px]" alt="google" />
             <span className="text-[18px]">Google</span>
@@ -145,9 +166,7 @@ function Login() {
         {/* RIGHT */}
         <div className="w-[50%] h-full bg-black rounded-r-2xl hidden md:flex flex-col items-center justify-center">
           <img src={logo} alt="logo" className="w-100 shadow-2xl" />
-          <span className="text-2xl text-white mt-2">
-            VIRTUAL COURSES
-          </span>
+          <span className="text-2xl text-white mt-2">VIRTUAL COURSES</span>
         </div>
       </form>
     </div>

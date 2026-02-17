@@ -112,7 +112,7 @@ function Nav() {
 
         {/* Hamburger Icon */}
         <RxHamburgerMenu
-          className="w-[35px] h-[35px] lg:hidden text-black cursor-pointer"
+          className="w-[35px] h-[35px] lg:hidden text-white cursor-pointer"
           onClick={() => setShowHam(true)}
         />
       </div>
