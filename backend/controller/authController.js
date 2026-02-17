@@ -4,8 +4,6 @@ import genToken from "../config/token.js";
 import userModel from "../model/userModel.js";
 import sendMail from "../config/sendMail.js";
 
-
-
 // SIGN UP CONTROLLER
 // ============================
 export const signUp = async (req, res) => {
@@ -53,18 +51,15 @@ export const signUp = async (req, res) => {
 
     // Return success response with user data
     return res.status(201).json(user);
-
   } catch (error) {
-    return res.status(500).json({message: `signUp error: ${error}`});
+    return res.status(500).json({ message: `signUp error: ${error}` });
   }
 };
-
 
 // LOGIN CONTROLLER
 // ============================
 export const login = async (req, res) => {
   try {
-
     // Extract credentials from request body
     const { email, password } = req.body;
 
@@ -93,27 +88,22 @@ export const login = async (req, res) => {
 
     // Return user data
     return res.status(200).json(user);
-
   } catch (error) {
-    return res.status(500).json({message: `login error: ${error}`});
+    return res.status(500).json({ message: `login error: ${error}` });
   }
 };
-
-
 
 // LOGOUT CONTROLLER
 // ============================
 export const logOut = async (req, res) => {
   try {
-
     // Clear authentication token from cookies
     res.clearCookie("token");
 
     // Return success message
     return res.status(200).json({ message: "Logged out successfully" });
-
   } catch (error) {
-    return res.status(500).json({message: `logOut error: ${error}`});
+    return res.status(500).json({ message: `logOut error: ${error}` });
   }
 };
 
@@ -151,7 +141,6 @@ export const sendOTP = async (req, res) => {
     return res.status(200).json({
       message: "OTP sent successfully",
     });
-
   } catch (error) {
     console.log("SEND OTP ERROR:", error); // 👈 IMPORTANT
     return res.status(500).json({
@@ -184,7 +173,6 @@ export const verifyOTP = async (req, res) => {
     await user.save();
 
     return res.status(200).json({ message: "OTP verified successfully" });
-
   } catch (error) {
     return res.status(500).json({ message: "Verify OTP error" });
   }
@@ -216,42 +204,35 @@ export const resetPassword = async (req, res) => {
     await user.save();
 
     return res.status(200).json({ message: "Password reset successful" });
-
   } catch (error) {
     return res.status(500).json({ message: "Reset password error" });
   }
 };
 
-
 // Google Auth
 // ============================
 export const googleAuth = async (req, res) => {
   try {
-    const {email, name ,role} = req.body;
+    const { email, name, role } = req.body;
 
-    let user = await userModel.findOne({email});
+    let user = await userModel.findOne({ email });
 
-    if(!user){
-      user =  await userModel.create({email, name ,role})
+    if (!user) {
+      user = await userModel.create({ email, name, role });
     }
 
-    // generating cookie
-    let token 
-    try {
-      token = genToken(user._id);
-    } catch (error) {
-      console.log(error)
-    }
+    // Generate JWT token after successful login
+    let token = await genToken(user._id);
+
     res.cookie("token", token, {
-      secure: "false", 
+      httpOnly: true,
+      secure: false,
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
     });
 
     res.status(201).json(user);
-
   } catch (error) {
     res.status(201).json(`Google Auth error ${error}`);
   }
-}
+};

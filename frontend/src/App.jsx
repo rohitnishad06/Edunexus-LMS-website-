@@ -11,15 +11,17 @@ import Profile from './pages/Profile'
 import ForgetPassword from './pages/ForgetPassword'
 
 function App() {
-    getCurrentUser()
+
    const {userData} = useSelector(state=>state.user)
+
+    getCurrentUser();
     return (
         <>
         <ToastContainer />
             <Routes>
-                <Route path='/' element={userData ? <Home/>:<Navigate to ={"/signup"}/>}/>
-                <Route path='/signup' element={!userData ? <SignUp/>: <Navigate to ={"/"}/> } />
+                <Route path='/' element={userData ? <Home/>:<Navigate to ={"/login"}/>}/>
                 <Route path='/login' element={!userData ? <Login/> : <Navigate to ={"/"}/>}/>
+                <Route path='/signup' element={!userData ? <SignUp/>: <Navigate to ={"/"}/> } />
                 <Route path='/profile' element={userData ? <Profile/>: <Navigate to={"/login"}/>}/>
                 <Route path='/forget' element={!userData ? <ForgetPassword/> : <Navigate to={"/"}/>}/>
 
