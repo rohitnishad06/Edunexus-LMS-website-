@@ -4,6 +4,8 @@ import home from "../assets/home1.jpg";
 import { RiPlayCircleFill } from "react-icons/ri";
 import ai from "../assets/ai.png";
 import Logos from "../component/Logos";
+import ExploreCourses from "../component/ExploreCourses";
+
 
 function Home() {
   return (
@@ -72,6 +74,7 @@ function Home() {
         </div>
       </div>
       <Logos />
+      <ExploreCourses />
     </div>
   );
 }

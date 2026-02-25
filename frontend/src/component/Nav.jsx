@@ -14,7 +14,7 @@ function Nav() {
   const { userData } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
   const [showProfile, setShowProfile] = useState(false);
   const [showHam, setShowHam] = useState(false);
 
@@ -50,20 +50,32 @@ function Nav() {
         <div className="w-[40%] lg:flex items-center justify-center gap-4 hidden relative">
 
           {/* Profile Icon */}
-          {!userData ? (
-            <IoPersonCircle
-              className="w-[50px] h-[50px] fill-black cursor-pointer"
-              onClick={() => setShowProfile(!showProfile)}
-            />
-          ) : (
-            <div
-              className="w-[50px] h-[50px] rounded-full flex items-center justify-center text-[20px] border-2 bg-black border-white cursor-pointer text-white"
-              onClick={() => setShowProfile(!showProfile)}
-            >
-              {userData?.name?.slice(0, 1).toUpperCase()}
-            </div>
-          )}
+          {/* 1️⃣ If no userData → Show default icon */}
+{!userData && (
+  <IoPersonCircle
+    className="w-[50px] h-[50px] fill-black cursor-pointer"
+    onClick={() => setShowProfile(prev => !prev)}
+  />
+)}
 
+{/* 2️⃣ If userData exists */}
+{userData && (
+  userData.photoUrl ? (
+    <img
+      src={userData.photoUrl}
+      alt="profile"
+      className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer"
+      onClick={() => setShowProfile(prev => !prev)}
+    />
+  ) : (
+    <div
+      className="w-[50px] h-[50px] rounded-full text-white flex items-center justify-center text-[20px] border-2 bg-black border-white cursor-pointer"
+      onClick={() => setShowProfile(prev => !prev)}
+    >
+      {userData?.name?.slice(0, 1).toUpperCase()}
+    </div>
+  )
+)}
           {/* Dashboard */}
           {userData?.role === "educator" && (
             <div
@@ -129,13 +141,14 @@ function Nav() {
         />
 
         {/* Profile Icon */}
-        {!userData ? (
-          <IoPersonCircle className="w-[60px] h-[60px] fill-white" />
-        ) : (
-          <div className="w-[60px] h-[60px] rounded-full flex items-center justify-center text-[22px] border-2 bg-black border-white text-white">
-            {userData?.name?.slice(0, 1).toUpperCase()}
-          </div>
-        )}
+       {userData?.photoUrl ? (<img src={userData.photoUrl} alt="profile"className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer" onClick={() => setShow(prev => !prev)}
+       />
+      ) : (
+      <div className="w-[50px] h-[50px] rounded-full text-white flex items-center justify-center text-[20px] border-2 bg-black border-white cursor-pointer"
+        onClick={() => setShow(prev => !prev)}>
+      {userData?.name?.slice(0, 1).toUpperCase()}
+      </div>
+   )}
 
         <div
           className="w-[200px] h-[60px] border-2 border-white text-white bg-black flex items-center justify-center rounded-[10px] cursor-pointer"
