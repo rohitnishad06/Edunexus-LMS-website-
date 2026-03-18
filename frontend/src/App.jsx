@@ -10,6 +10,10 @@ import { useSelector } from 'react-redux'
 import Profile from './pages/Profile'
 import ForgetPassword from './pages/ForgetPassword'
 import EditProfile from './pages/EditProfile'
+import Courses from './pages/Educator/Courses'
+import CreateCourses from './pages/Educator/CreateCourses'
+import { MdDashboard } from 'react-icons/md'
+import Dashboard from './pages/Educator/Dashbord'
 
 function App() {
 
@@ -26,6 +30,15 @@ function App() {
                 <Route path='/profile' element={userData ? <Profile/>: <Navigate to={"/login"}/>}/>
                 <Route path='/forget' element={!userData ? <ForgetPassword/> : <Navigate to={"/"}/>}/>
                 <Route path='/edit-profile' element={userData ? <EditProfile/> : <Navigate to={"/signup"}/>}/>
+                <Route path='/dashboard' element={userData?.role === "educator" ?  <Dashboard/> : <Navigate to={"/signup"}/>}/>
+                <Route path='/courses' element={userData?.role === "educator" ?  <Courses/> : <Navigate to={"/signup"}/>}/>
+                <Route path='/ create course' element={userData?.role === "educator" ?  < CreateCourses/> : <Navigate to={"/signup"}/>}/>
+          
+          
+          
+
+
+          
             </Routes>
         </>
     )

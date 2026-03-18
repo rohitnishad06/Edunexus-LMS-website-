@@ -10,18 +10,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 function Nav() {
   const { userData } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const [showProfile, setShowProfile] = useState(false);
   const [showHam, setShowHam] = useState(false);
 
   const handleLogOut = async () => {
     try {
-      const result = await axios.get(`${serverUrl}/api/auth/logout`, {
+      await axios.get(`${serverUrl}/api/auth/logout`, {
         withCredentials: true,
       });
       dispatch(setUserData(null));
@@ -51,32 +50,31 @@ function Nav() {
         <div className="w-[40%] lg:flex items-center justify-center gap-4 hidden relative">
 
           {/* Profile Icon */}
-          {/* 1️⃣ If no userData → Show default icon */}
-{!userData && (
-  <IoPersonCircle
-    className="w-[50px] h-[50px] fill-black cursor-pointer"
-    onClick={() => setShowProfile(prev => !prev)}
-  />
-)}
+          {!userData && (
+            <IoPersonCircle
+              className="w-[50px] h-[50px] fill-black cursor-pointer"
+              onClick={() => setShowProfile(prev => !prev)}
+            />
+          )}
 
-{/* 2️⃣ If userData exists */}
-{userData && (
-  userData.photoUrl ? (
-    <img
-      src={userData.photoUrl}
-      alt="profile"
-      className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer"
-      onClick={() => setShowProfile(prev => !prev)}
-    />
-  ) : (
-    <div
-      className="w-[50px] h-[50px] rounded-full text-white flex items-center justify-center text-[20px] border-2 bg-black border-white cursor-pointer"
-      onClick={() => setShowProfile(prev => !prev)}
-    >
-      {userData?.name?.slice(0, 1).toUpperCase()}
-    </div>
-  )
-)}
+          {userData && (
+            userData.photoUrl ? (
+              <img
+                src={userData.photoUrl}
+                alt="profile"
+                className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer"
+                onClick={() => setShowProfile(prev => !prev)}
+              />
+            ) : (
+              <div
+                className="w-[50px] h-[50px] rounded-full text-white flex items-center justify-center text-[20px] border-2 bg-black border-white cursor-pointer"
+                onClick={() => setShowProfile(prev => !prev)}
+              >
+                {userData?.name?.slice(0, 1).toUpperCase()}
+              </div>
+            )
+          )}
+
           {/* Dashboard */}
           {userData?.role === "educator" && (
             <div
@@ -142,18 +140,28 @@ function Nav() {
         />
 
         {/* Profile Icon */}
-       {userData?.photoUrl ? (<img src={userData.photoUrl} alt="profile"className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer" onClick={() => setShow(prev => !prev)}
-       />
-      ) : (
-      <div className="w-[50px] h-[50px] rounded-full text-white flex items-center justify-center text-[20px] border-2 bg-black border-white cursor-pointer"
-        onClick={() => setShow(prev => !prev)}>
-      {userData?.name?.slice(0, 1).toUpperCase()}
-      </div>
-   )}
+        {userData?.photoUrl ? (
+          <img
+            src={userData.photoUrl}
+            alt="profile"
+            className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer"
+            onClick={() => setShowProfile(prev => !prev)}
+          />
+        ) : (
+          <div
+            className="w-[50px] h-[50px] rounded-full text-white flex items-center justify-center text-[20px] border-2 bg-black border-white cursor-pointer"
+            onClick={() => setShowProfile(prev => !prev)}
+          >
+            {userData?.name?.slice(0, 1).toUpperCase()}
+          </div>
+        )}
 
         <div
           className="w-[200px] h-[60px] border-2 border-white text-white bg-black flex items-center justify-center rounded-[10px] cursor-pointer"
-          onClick={() => navigate("/profile")}
+          onClick={() => {
+            navigate("/profile");
+            setShowHam(false);
+          }}
         >
           My Profile
         </div>
@@ -163,7 +171,13 @@ function Nav() {
         </div>
 
         {userData?.role === "educator" && (
-          <div className="w-[200px] h-[60px] border-2 border-white text-white bg-black flex items-center justify-center rounded-[10px] cursor-pointer">
+          <div
+            className="w-[200px] h-[60px] border-2 border-white text-white bg-black flex items-center justify-center rounded-[10px] cursor-pointer"
+            onClick={() => {
+              navigate("/dashboard");
+              setShowHam(false);
+            }}
+          >
             Dashboard
           </div>
         )}
@@ -184,7 +198,6 @@ function Nav() {
           </div>
         )}
       </div>
-
     </>
   );
 }
