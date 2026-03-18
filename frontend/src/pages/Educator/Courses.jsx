@@ -51,7 +51,7 @@ function Courses() {
                     <td className='px-4 py-3'> <span className= 'px-3 py-1 rounded-full text-xs bg-red-100 text-red-600'>Draft</span></td>
 
                     <td className='px-4 py-3'>
-                        <FaEdit className='text-gray-100 hover:text-blue-600 cursor-pointer'/>
+                        <FaEdit className='text-gray-800 hover:text-blue-600 cursor-pointer'/>
                     </td>
                 </tr>
             </tbody>
@@ -69,7 +69,7 @@ function Courses() {
                     <h2 className='font-medium text-sm'>title</h2>
                     <p className='text-gray-600 text-xs mt-1'>$ NA</p>
                 </div>
-                <FaEdit className='text-gray-100 hover:text-blue-600 cursor-pointer'/>
+                <FaEdit className='text-gray-800 hover:text-blue-600 cursor-pointer'/>
                 
             </div>
             <span className=' w-fit px-3 py-1 text-xs rounded full bg-red-100 text-red-600'>Draft</span>

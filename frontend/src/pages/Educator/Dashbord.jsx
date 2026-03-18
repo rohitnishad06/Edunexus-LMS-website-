@@ -9,7 +9,7 @@ function Dashboard() {
 
   return (
     <div className='flex min-h-screen bg-gray-100'>
-        <FaArrowLeft className="'w-[22px] absolute top-[10%] left-[10%] h-[22px] cursor-pointer'onclick={()}=>navigate/>"/>
+        <FaArrowLeft className="w-[22px] absolute top-[10%] left-[10%] h-[22px] cursor-pointer" onClick={()=>navigate('/')} />
         
       <div className='w-full px-6 py-10 bg-gray-50 space-y-10'>
         {/* main section */}
@@ -24,7 +24,7 @@ function Dashboard() {
             <h1 className='text-2xl font-bold text-gray-800'>Welcome ,{userData?.name || "Educator"} </h1>
            <h1 className='text-xl font-semibold text-gray-800'>Total Earning : 0</h1>
   <p className='text-gray-600 text-sm'>{userData?.description || "Start Creating Courses for Your Students"}</p>
-  <h1 className='px-[10px] text-center py-[10px] border-2 🟣bg-black 🟣border-black text-white round-[10px] text-[15px] font-light flex items-center justify-center cursor-pointer' onClick={() => navigate("/courses")}>Create Courses</h1>
+  <h1 className='px-[10px] text-center py-[10px] border-2 bg-black border-black text-white rounded-[10px] text-[15px] font-light flex items-center justify-center cursor-pointer' onClick={() => navigate("/courses")}>Create Courses</h1>
 </div>
 </div>
   

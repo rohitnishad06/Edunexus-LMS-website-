@@ -32,7 +32,7 @@ function App() {
                 <Route path='/edit-profile' element={userData ? <EditProfile/> : <Navigate to={"/signup"}/>}/>
                 <Route path='/dashboard' element={userData?.role === "educator" ?  <Dashboard/> : <Navigate to={"/signup"}/>}/>
                 <Route path='/courses' element={userData?.role === "educator" ?  <Courses/> : <Navigate to={"/signup"}/>}/>
-                <Route path='/ create course' element={userData?.role === "educator" ?  < CreateCourses/> : <Navigate to={"/signup"}/>}/>
+                <Route path='/createcourse' element={userData?.role === "educator" ?  < CreateCourses/> : <Navigate to={"/signup"}/>}/>
           
           
           
