@@ -1,4 +1,4 @@
-import course from "../model/courseModel.js";
+import courseModel from "../model/courseModel.js";
 import Course from "../model/courseModel.js";
 
 export const createCourse = async (req, res) => {
@@ -11,7 +11,7 @@ export const createCourse = async (req, res) => {
         .json({ message: "Title and category are required" });
     }
 
-    const newCourse = await Course.create({
+    const newCourse = await courseModel.create({
       title,
       category,
       description,
@@ -28,7 +28,7 @@ export const createCourse = async (req, res) => {
 
 export const getPublishedCourses = async (req, res) => {
   try {
-    const courses = await Course.find({ isPublished: true });
+    const courses = await courseModel.find({ isPublished: true });
 
     if (!courses.length) {
       return res.status(404).json({ message: "Course are not found" });
@@ -46,7 +46,7 @@ export const getCreatorCourses = async (req, res) => {
   try {
     const userId = req.userId;
 
-    const courses = await Course.find({ creator: userId });
+    const courses = await courseModel.find({ creator: userId });
 
     if (!courses.length) {
       return res.status(404).json({ message: "Course are not found" });
@@ -69,7 +69,7 @@ export const editCourse  =async (req,res) =>{
         if(req.file){
             thumbnail = await uploadCloudnary(req.file.path)
         }
-        let course =await Course.findById(courseId)
+        let course =await courseModel.findById(courseId)
         if(!course){
       return res.status(404).json({ message: "Course  are not found" }); 
         }
