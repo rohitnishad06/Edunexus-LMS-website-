@@ -21,4 +21,5 @@ courseRouter.delete("/remove/:courseId", isAuth, removeCourse);
 courseRouter.delete("/editcourse/:courseId", isAuth, upload.single('thumbnail'),editCourse);
 
 courseRouter.get("/getcourses/:courseId",isAuth , getCourseById)
-export default router;
+
+export default courseRouter;
