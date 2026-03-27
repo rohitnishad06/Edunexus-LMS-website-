@@ -1,7 +1,7 @@
 import express from "express";
-import {createCourse, getPublishedCourses, getCreatorCourses,removeCourse} from "../controllers/courseController.js";
-import isAuth from "../middlewares/isAuthenticated.js";
-import { editCourse, getCourseById } from "../controller/courseController.js";
+import { editCourse, getCourseById, createCourse, getPublishedCourses, getCreatorCourses,removeCourse } from "../controller/courseController.js";
+import isAuth from "../middelware/isAuth.js";
+import {upload} from "../middelware/multer.js";
 
 const courseRouter = express.Router();
 
@@ -18,7 +18,7 @@ courseRouter.get("/getcreator", isAuth, getCreatorCourses);
 courseRouter.delete("/remove/:courseId", isAuth, removeCourse);
 
 // edit course
-courseRouter.delete("/editcourse/:courseId", isAuth, upload.single('thumbnail'),editCourse);
+courseRouter.put("/editcourse/:courseId", isAuth, upload.single("thumbnail"), editCourse);
 
 courseRouter.get("/getcourses/:courseId",isAuth , getCourseById)
 

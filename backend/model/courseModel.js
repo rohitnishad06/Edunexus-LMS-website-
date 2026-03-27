@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-const courseSchema = new mongoose.schema({
+const courseSchema = new mongoose.Schema({
     title:{
         type:String,
-        requried:true
+        required:true
     },
     subTitle:{
         type:String
@@ -13,7 +13,7 @@ const courseSchema = new mongoose.schema({
     },
     category:{
         type:String,
-        requried:true
+        required:true
     },
     level:{
         type:String,
@@ -26,16 +26,16 @@ const courseSchema = new mongoose.schema({
         type:Number
     },
     enrolledStudents:[{ 
-        type:mongoose.Schema.Types.objectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     }],
     lectures:[{ 
-        type:mongoose.Schema.Types.objectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"Lecture"
     }],
 
     creator:{
-        type:mongoose.Schema.Types.objectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
 
@@ -44,7 +44,7 @@ const courseSchema = new mongoose.schema({
         default:false
     },
     reviews:[{
-        type:mongoose.Schema.Types.objectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:'Review'
     }]
         
