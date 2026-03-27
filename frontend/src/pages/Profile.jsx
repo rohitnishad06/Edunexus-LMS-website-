@@ -24,7 +24,7 @@ function Profile() {
 
         <FaArrowLeft  className='absolute top-8% left-5% w-22px h-22px cursor-pointer' onClick={()=>navigate("/")}/>
         <div className='flex flex-col items-center text-center'>
-          {userData?.photoUrl ? <img src={userData?.photoUrl} className="w-24 h-24 rounded-full border-4 border-black object-cover  
+          {userData?.photoUrl ? <img src={userDserverta?.photoUrl} className="w-24 h-24 rounded-full border-4 border-black object-cover  
           " alt=""/>:
           <div className='w-24 h-24 rounded-full text-white flex items-center text-[30px] border-4 bg-black border-white'>
             <h2>{initial}</h2>

@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa'
+import { FaArrowLeft } from 'react-icons/fa';
 
 function Dashboard() {
   const { userData } = useSelector(state => state.user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className='flex min-h-screen bg-gray-100'>
