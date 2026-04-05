@@ -18,7 +18,7 @@ courseRouter.get("/getcreator", isAuth, getCreatorCourses);
 courseRouter.delete("/remove/:courseId", isAuth, removeCourse);
 
 // edit course
-courseRouter.put("/editcourse/:courseId", isAuth, upload.single("thumbnail"), editCourse);
+courseRouter.post("/editcourse/:courseId", isAuth, upload.single("thumbnail"), editCourse);
 
 courseRouter.get("/getcourses/:courseId",isAuth , getCourseById)
 
