@@ -1,25 +1,26 @@
 import React from 'react'
-import { Navigate, Route , Routes } from 'react-router-dom';
+import {Navigate, Route , Routes } from 'react-router-dom';
 import Home from './pages/home';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 export const serverUrl = "http://localhost:8000";
 import{ToastContainer} from "react-toastify";
-import getCurrentUser from './customHooks/getCurrentUser';
 import { useSelector } from 'react-redux';
 import Profile from './pages/Profile'
 import ForgetPassword from './pages/ForgetPassword';
-import EditProfile from './pages/EditProfile';
 import Courses from './pages/Educator/Courses';
 import CreateCourses from './pages/Educator/CreateCourses';
-import EditCourses from './pages/Educator/EditCourses';
-import { MdDashboard } from 'react-icons/md';
 import Dashboard from './pages/Educator/Dashbord';
 import getCreateCourse from './customHooks/getCreateCourse';
+import EditProfile from './pages/EditProfile';
+import EditCourses from './pages/Educator/EditCourses';
+import useGetCurrentUser from './customHooks/getCurrentUser';
+import getPublishedCourse from './customHooks/getPublishedCourse';
 
 function App() {
-    getCurrentUser();
+    useGetCurrentUser();
     getCreateCourse();
+    getPublishedCourse();
    const {userData} = useSelector(state=>state.user)
     return (
         <>
@@ -34,13 +35,7 @@ function App() {
                 <Route path='/dashboard' element={userData?.role === "educator" ?  <Dashboard/> : <Navigate to={"/signup"}/>}/>
                 <Route path='/courses' element={userData?.role === "educator" ?  <Courses/> : <Navigate to={"/signup"}/>}/>
                 <Route path='/createcourse' element={userData?.role === "educator" ?  < CreateCourses/> : <Navigate to={"/signup"}/>}/>
-                <Route path='/editcourse/:courseId' element={userData?.role === "educator" ?  < EditCourses/> : <Navigate to={"/signup"}/>}/>
-          
-          
-          
-
-
-          
+                <Route path='/editcourse/:courseId' element={userData?.role === "educator" ? <EditCourses/> : <Navigate to={"/signup"}/>}/>
             </Routes>
         </>
     )

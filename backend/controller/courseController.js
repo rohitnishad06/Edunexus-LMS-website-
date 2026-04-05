@@ -1,3 +1,4 @@
+import uploadCloudinary from "../config/cloudinary.js";
 import courseModel from "../model/courseModel.js";
 import Course from "../model/courseModel.js";
 
@@ -67,7 +68,7 @@ export const editCourse  =async (req,res) =>{
         const {title,subTitle,description,category,level,isPublished,price} = req.body
         let  thumbnail
         if(req.file){
-            thumbnail = await uploadCloudnary(req.file.path)
+            thumbnail = await uploadCloudinary(req.file.path)
         }
         let course =await courseModel.findById(courseId)
         if(!course){
@@ -75,7 +76,7 @@ export const editCourse  =async (req,res) =>{
         }
         const updateData = {title,subTitle,description,category,level,isPublished,price,thumbnail}
 
-        course = await Course.findByIdUpdate(courseId,updateData, {new:true})
+        course = await Course.findByIdAndUpdate(courseId,updateData, {new:true})
         return res.status(200).json(course)
     } catch (error) {
 return res.status(500).json({
