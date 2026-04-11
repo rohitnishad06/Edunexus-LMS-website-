@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import useGetPublishedCourse from "../customHooks/getPublishedCourse";
+import Card from "./Card";
 
 function CardPage() {
-  const courseData = useSelector((state) => state.courseData);
+  const courseData = useSelector((state) => state.course?.courseData);
   useGetPublishedCourse();
   const [popularCourses, setPopularCourses] = useState([]);
 

@@ -1,6 +1,7 @@
 import uploadCloudinary from "../config/cloudinary.js";
 import courseModel from "../model/courseModel.js";
 import Course from "../model/courseModel.js";
+import lectureModel from "../model/lectureModel.js";
 
 export const createCourse = async (req, res) => {
   try {
@@ -29,11 +30,12 @@ export const createCourse = async (req, res) => {
 
 export const getPublishedCourses = async (req, res) => {
   try {
-    const courses = (await courseModel.find({ isPublished: true })).
-    populate("lectures");
+    const courses = await courseModel
+      .find({ isPublished: true })
+      .populate("lectures"); 
 
     if (!courses.length) {
-      return res.status(404).json({ message: "Course are not found" });
+      return res.status(404).json({ message: "Courses not found" });
     }
 
     return res.status(200).json(courses);

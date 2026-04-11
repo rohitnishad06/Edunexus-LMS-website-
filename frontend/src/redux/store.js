@@ -4,6 +4,6 @@ import courseSlice from "./courseSlice";
 export const store = configureStore({
     reducer:{
         user:userSlice,
-        Course:courseSlice
+        course:courseSlice
     }
 })

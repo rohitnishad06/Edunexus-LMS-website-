@@ -29,7 +29,7 @@ function EditCourses() {
   const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(false);
   const dispatch = useDispatch();
-  const courseData = useSelector((state) => state.course?.courseData || []);
+  const courseData = useSelector((state) => state.course?.courseData);
 
   const handleThumbnail = (e) => {
     const file = e.target.files[0];

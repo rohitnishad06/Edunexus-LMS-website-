@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import ai from "../assets/SearchAi.png";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import Card from "../component/Card";
 
 function AllCourses() {
   const navigate = useNavigate();
-  const courseData = useSelector((state) => state.courseData);
+  const courseData = useSelector((state) => state.course?.courseData);
+  console.log(courseData);
   const [category, setCategory] = useState([]);
   const [filterCourses, setFilterCourses] = useState([]);
 
@@ -128,7 +130,7 @@ function AllCourses() {
             <input
               type="checkbox"
               className="accent-black w-4 h-4 rounded-md"
-              value={" Ethical Hacking"}
+              value={"Ethical Hacking"}
               onChange={toggleCategory}
             />
             Ethical Hacking

@@ -11,15 +11,12 @@ const useGetPublishedCourse = () => {
     const courseData = useSelector((state) => state.course?.courseData);
 
     useEffect(() => {
-        if (courseData && courseData.length > 0) return; // ✅ stop loop
-
         const getCourseData = async () => {
             try {
                 const result = await axios.get(
                     serverUrl + "/api/course/getpublished",
                     { withCredentials: true }
                 );
-
                 dispatch(setCourseData(result.data));
             } catch (error) {
                 console.log(error);
@@ -27,7 +24,7 @@ const useGetPublishedCourse = () => {
         };
 
         getCourseData();
-    }, [dispatch, courseData]);
+    }, []);
 };
 
 export default useGetPublishedCourse;

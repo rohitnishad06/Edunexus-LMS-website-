@@ -1,6 +1,6 @@
-import mongooge from "mongoose"
+import mongoose from "mongoose"
 
-const lectureSchema = new mongoose.lectureSchema({
+const lectureSchema = new mongoose.Schema({
     lectureTitle:{
         type:String,
         required:true
@@ -13,6 +13,6 @@ const lectureSchema = new mongoose.lectureSchema({
     }
 },{timestamps:true})
 
-const Lecture = mongoose.model("Lecture",lectureSchema)
+const lectureModel = mongoose.model("Lecture",lectureSchema)
 
-export default Lecture
+export default lectureModel
