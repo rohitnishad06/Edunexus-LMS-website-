@@ -16,6 +16,7 @@ import EditProfile from './pages/EditProfile';
 import EditCourses from './pages/Educator/EditCourses';
 import useGetCurrentUser from './customHooks/getCurrentUser';
 import getPublishedCourse from './customHooks/getPublishedCourse';
+import AllCourses from './pages/AllCourses';
 
 function App() {
     useGetCurrentUser();
@@ -32,9 +33,10 @@ function App() {
                 <Route path='/profile' element={userData ? <Profile/>: <Navigate to={"/login"}/>}/>
                 <Route path='/forget' element={!userData ? <ForgetPassword/> : <Navigate to={"/"}/>}/>
                 <Route path='/edit-profile' element={userData ? <EditProfile/> : <Navigate to={"/signup"}/>}/>
+                <Route path='/allcourses' element={userData ? <AllCourses/> : <Navigate to={"/signup"}/>}/> 
                 <Route path='/dashboard' element={userData?.role === "educator" ?  <Dashboard/> : <Navigate to={"/signup"}/>}/>
                 <Route path='/courses' element={userData?.role === "educator" ?  <Courses/> : <Navigate to={"/signup"}/>}/>
-                <Route path='/createcourse' element={userData?.role === "educator" ?  < CreateCourses/> : <Navigate to={"/signup"}/>}/>
+                <Route path='/createcourse' element={userData?.role === "educator" ?  < CreateCourses/> : <Navigate to={"/signup"}/>}/>  
                 <Route path='/editcourse/:courseId' element={userData?.role === "educator" ? <EditCourses/> : <Navigate to={"/signup"}/>}/>
             </Routes>
         </>
