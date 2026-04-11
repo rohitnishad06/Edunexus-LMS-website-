@@ -4,10 +4,15 @@ import { serverUrl } from "../App";
 import { useDispatch } from "react-redux";
 import { setCourseData } from "../redux/courseSlice";
 
+import { useSelector } from "react-redux";
+
 const useGetPublishedCourse = () => {
     const dispatch = useDispatch();
+    const courseData = useSelector((state) => state.course?.courseData);
 
     useEffect(() => {
+        if (courseData && courseData.length > 0) return; // ✅ stop loop
+
         const getCourseData = async () => {
             try {
                 const result = await axios.get(
@@ -16,14 +21,13 @@ const useGetPublishedCourse = () => {
                 );
 
                 dispatch(setCourseData(result.data));
-                console.log(result.data);
             } catch (error) {
                 console.log(error);
             }
         };
 
         getCourseData();
-    }, [dispatch]);
+    }, [dispatch, courseData]);
 };
 
 export default useGetPublishedCourse;
