@@ -9,6 +9,8 @@ import axios from 'axios';
 import { serverUrl } from '../../App';
 import { toast } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCourseData } from '../../redux/courseSlice';
 
 
 function EditCourses() {
@@ -26,7 +28,10 @@ function EditCourses() {
   const [frontendImage, setFrontendImage] = useState(img);
   const [backendImage, setBackendImage] = useState(null);
   const [loading, setLoading] = useState(false);
-   const [loading1, setLoading1] = useState(false);
+  const [loading1, setLoading1] = useState(false);
+  const dispatch =useDispatch()
+  const {courseData} = useSelector(state=>state.course)
+
 
   const handleThumbnail = (e) => {
     const file = e.target.files[0];
@@ -75,6 +80,22 @@ function EditCourses() {
     try{
       const result = await axios.post(serverUrl + `/api/course/editcourse/${courseId}`, formData, {withCredentials: true});
       console.log(result.data);
+
+      const updateData = result.data
+      if(updateData.isPublished){
+        const updateCourses = courseData.map(c => c._id ===courseId ? updateData : c)
+
+        if(!courseData.some(c=> c._id === courseId))
+        {
+          updateCourses.push(updateData)
+        }
+        dispatch(setCourseData(updateCourses))
+      }
+      else{
+        const filterCourse = courseData.filter(c => c._id !==
+        courseId)
+        dispatch(setCourseData(filterCourses))
+      }
       setLoading(false);
       navigate("/courses");
       toast.success("Course updated successfully");
@@ -90,6 +111,9 @@ function EditCourses() {
     try{
       const result = await axios.delete(serverUrl + `/api/course/remove/${courseId}`, {withCredentials: true});
       console.log(result.data);
+      const filterCourse = courseData.filter(c => c._id !==
+      courseId)
+      dispatch(setCourseData(filterCourse))
       setLoading1(false);
       navigate("/courses");
       toast.success("Course removed successfully");
