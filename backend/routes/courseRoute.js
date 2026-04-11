@@ -1,5 +1,5 @@
 import express from "express";
-import { editCourse, getCourseById, createCourse, getPublishedCourses, getCreatorCourses,removeCourse } from "../controller/courseController.js";
+import { editCourse, getCourseById, createCourse, getPublishedCourses, getCreatorCourses,removeCourse, createLecture, getCourseLecture, editLecture, removeLecture } from "../controller/courseController.js";
 import isAuth from "../middelware/isAuth.js";
 import {upload} from "../middelware/multer.js";
 
@@ -22,4 +22,14 @@ courseRouter.post("/editcourse/:courseId", isAuth, upload.single("thumbnail"), e
 
 courseRouter.get("/getcourses/:courseId",isAuth , getCourseById)
 
+
+//for lectures 
+
+courseRouter.post("/createlecture/:courseId", isAuth,createLecture)
+
+courseRouter.post("/createlecture/:courseId", isAuth,getCourseLecture)
+
+courseRouter.post("/editlecture/:lectureId", isAuth, upload.single("videoUrl"),editLecture)
+
+courseRouter.delete("/removelecture/:lectureId",isAuth , removeLecture)
 export default courseRouter;
