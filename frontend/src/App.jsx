@@ -17,15 +17,21 @@ import EditCourses from './pages/Educator/EditCourses';
 import useGetCurrentUser from './customHooks/getCurrentUser';
 import getPublishedCourse from './customHooks/getPublishedCourse';
 import AllCourses from './pages/AllCourses';
+import CreateLecture from './pages/Educator/CreateLecture';
+import EditLecture from './pages/Educator/EditLecture';
+import ViewCourse from './pages/ViewCourse';
+import ScrollToTop from './component/ScrollToTop';
 
 function App() {
     useGetCurrentUser();
     getCreateCourse();
     getPublishedCourse();
+
    const {userData} = useSelector(state=>state.user)
     return (
         <>
         <ToastContainer />
+        <ScrollToTop />
             <Routes>
                 <Route path='/' element={userData ? <Home/>:<Navigate to ={"/login"}/>}/>
                 <Route path='/login' element={!userData ? <Login/> : <Navigate to ={"/"}/>}/>
@@ -38,6 +44,9 @@ function App() {
                 <Route path='/courses' element={userData?.role === "educator" ?  <Courses/> : <Navigate to={"/signup"}/>}/>
                 <Route path='/createcourse' element={userData?.role === "educator" ?  < CreateCourses/> : <Navigate to={"/signup"}/>}/>  
                 <Route path='/editcourse/:courseId' element={userData?.role === "educator" ? <EditCourses/> : <Navigate to={"/signup"}/>}/>
+                <Route path='/createlecture/:courseId' element={userData?.role === "educator" ? <CreateLecture/> : <Navigate to={"/signup"}/>}/>
+                 <Route path='/editlecture/:courseId/:lectureId' element={userData?.role === "educator" ? <EditLecture/> : <Navigate to={"/signup"}/>}/>
+                <Route path='/viewcourse/:courseId' element={userData?.role ==="educator" ? <ViewCourse/> : <Navigate to={"/login"}/>}/>
             </Routes>
         </>
     )

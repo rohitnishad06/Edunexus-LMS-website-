@@ -1,7 +1,8 @@
 import express from "express";
-import { editCourse, getCourseById, createCourse, getPublishedCourses, getCreatorCourses,removeCourse, createLecture, getCourseLecture, editLecture, removeLecture } from "../controller/courseController.js";
+import { editCourse, getCourseById, createCourse, getPublishedCourses, getCreatorCourses,removeCourse, createLecture, getCourseLecture, editLecture, removeLecture, getCreatorById } from "../controller/courseController.js";
 import isAuth from "../middelware/isAuth.js";
 import {upload} from "../middelware/multer.js";
+import { get } from "mongoose";
 
 const courseRouter = express.Router();
 
@@ -27,9 +28,11 @@ courseRouter.get("/getcourses/:courseId",isAuth , getCourseById)
 
 courseRouter.post("/createlecture/:courseId", isAuth,createLecture)
 
-courseRouter.post("/createlecture/:courseId", isAuth,getCourseLecture)
+courseRouter.get("/courselecture/:courseId", isAuth,getCourseLecture)
 
-courseRouter.post("/editlecture/:lectureId", isAuth, upload.single("videoUrl"),editLecture)
+courseRouter.post("/editlecture/:lectureId", isAuth, upload.single("video"),editLecture)
 
 courseRouter.delete("/removelecture/:lectureId",isAuth , removeLecture)
+
+courseRouter.post("/creator", isAuth, getCreatorById)
 export default courseRouter;

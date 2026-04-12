@@ -19,7 +19,7 @@ function EditCourses() {
   const [isPublished, setIsPublished] = useState(false);
   const [selectCourse, setSelectCourse] = useState(null);
   const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
+  const [subTitle, setSubtitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [level, setLevel] = useState("");
@@ -52,7 +52,7 @@ function EditCourses() {
   useEffect(() => {
     if (selectCourse) {
       setTitle(selectCourse.title || "");
-      setSubtitle(selectCourse.subtitle || "");
+      setSubtitle(selectCourse.subTitle || "");
       setDescription(selectCourse.description || "");
       setCategory(selectCourse.category || "");
       setLevel(selectCourse.level || "");
@@ -69,7 +69,7 @@ function EditCourses() {
     setLoading(true);
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("subtitle", subtitle);
+    formData.append("subTitle", subTitle);
     formData.append("description", description);
     formData.append("category", category);
     formData.append("level", level);
@@ -142,7 +142,7 @@ function EditCourses() {
           Add detail Information regarding the Course
         </h2>
         <div className="space-x-2 space-y-2">
-          <button className="bg-black text-white px-4 py-2 rounded-md">
+          <button className="bg-black text-white px-4 py-2 rounded-md" onClick={() => navigate(`/createlecture/${selectCourse?._id}`)}>
             Go to Lecture page
           </button>
         </div>
@@ -207,7 +207,7 @@ function EditCourses() {
               className="w-full border px-4 py-2 rounded-md"
               placeholder="course Subtitle"
               onChange={(e) => setSubtitle(e.target.value)}
-              value={subtitle}
+              value={subTitle}
             />
           </div>
 

@@ -8,13 +8,15 @@ function Dashboard() {
   const navigate = useNavigate();
 
   return (
+    
     <div className="flex min-h-screen bg-gray-100">
       <FaArrowLeft
-        className="w-[22px] absolute top-[10%] left-[10%] h-[22px] cursor-pointer"
+        className="w-[22px] absolute top-[6%] left-[6%] h-[22px] cursor-pointer"
         onClick={() => navigate("/")}
       />
 
       <div className="w-full px-6 py-10 bg-gray-50 space-y-10">
+        
         {/* main section */}
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-md p-6 flex flex-col md:flex-row items-center gap-6">
           <img

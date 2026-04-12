@@ -1,7 +1,8 @@
 import uploadCloudinary from "../config/cloudinary.js";
 import courseModel from "../model/courseModel.js";
 import Course from "../model/courseModel.js";
-import lectureModel from "../model/lectureModel.js";
+import Lecture from "../model/lectureModel.js";
+import User from "../model/userModel.js";
 
 export const createCourse = async (req, res) => {
   try {
@@ -138,6 +139,7 @@ export const createLecture = async (req, res) => {
   try {
     const { lectureTitle } = req.body;
     const { courseId } = req.params;
+    
 
     if (!lectureTitle || !courseId) {
       return res.status(400).json({
@@ -188,34 +190,45 @@ export const getCourseLecture = async (req, res) => {
   }
 };
 
-export const editLecture = async (req, res) =>{
-try {
-  const {lectured} = req.params
-  const{isPreviewFree , lectureTitle} = req.body
-  const lecture = await Lecture.findById(lectureId)
-  if(!lecture){
-      return res.status(404).json({
-      message: "Lecture  is not found",
-      });
-  }
-  let videoUrl
-  if(req.file){
-    videoUrl = await uploadCloudinary(req.file.path)
-    lecture.videoUrl
-  }
-  if(lectureTitle){
-    lecture.lectureTitle = lectureTitle
-  }
-  lecture.isPreviewFree =isPreviewFree
+export const editLecture = async (req, res) => {
+  try {
+    const { lectureId } = req.params;   
+    const { isPreviewFree, lectureTitle } = req.body;
 
-  await lecture.save()
-  return res.status(200).json(lecture)
-} catch (error) {
-      return res.status(500).json({
+    const lecture = await Lecture.findById(lectureId);
+
+    if (!lecture) {
+      return res.status(404).json({
+        message: "Lecture is not found",
+      });
+    }
+
+    if (req.file) {
+      const videoUrl = await uploadCloudinary(req.file.path);
+      lecture.videoUrl = videoUrl;
+    }
+
+    if (lectureTitle) {
+      lecture.lectureTitle = lectureTitle;
+    }
+
+    if (typeof isPreviewFree !== "undefined") {
+      lecture.isPreviewFree = isPreviewFree;
+    }
+
+    await lecture.save();
+
+    return res.status(200).json({
+      message: "Lecture updated successfully",
+      lecture,
+    });
+
+  } catch (error) {
+    return res.status(500).json({
       message: `Failed to edit lecture: ${error.message}`,
     });
-}
-}
+  }
+};
 
 
 export const removeLecture = async (req, res) => {
@@ -240,7 +253,24 @@ export const removeLecture = async (req, res) => {
 
   } catch (error) {
     return res.status(500).json({
-      message: error.message,
+      message: `Failed to remove Lectures &{error}`
     });
   }
 };
+
+//get Creator
+
+export const getCreatorById = async (req, res) => {
+  try{
+    const{userId} = req.body;
+    const user = await User.findById(userId).select("-password");
+    if(!user){
+      return res.status(404).json({message:"User is not found"})
+    }
+    return res.status(200).json(user)
+  }catch(error){
+    return res.status(500).json({
+      message: `Failed to get creator: ${error}`
+    });
+  }
+}
