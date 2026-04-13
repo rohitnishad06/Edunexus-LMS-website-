@@ -14,7 +14,7 @@ function About() {
         <img
           src={about}
           alt="about"
-          className="w-[90%] h-[420px] object-cover rounded-2xl"
+          className="w-[90%] h-[550px] object-cover rounded-2xl"
         />
 
         {/* Video Card */}

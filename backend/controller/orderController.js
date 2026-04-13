@@ -24,7 +24,7 @@ export const razorpayOrder = async (req, res) => {
 
     const options = {
       amount: course.price * 100,
-      currency : "INR",
+      currency: "INR",
       receipt: courseId.toString(),
     };
 
@@ -49,24 +49,37 @@ export const verifyPayment = async (req, res) => {
       const user = await userModel.findById(userId);
 
       // checking user enrolled or not
-      if (!user.enrolledcourses.includes(courseId)) {
-        await user.enrolledcourses.push(courseId);
+      if (
+        !user.enrolledcourses.some(
+          (id) => id.toString() === courseId.toString(),
+        )
+      ) {
+        user.enrolledcourses.push(courseId);
         await user.save();
       }
 
       // checking course has student or not
       const course = await courseModel.findById(courseId).populate("lectures");
-      if (!course.enrolledStudents.includes(userId)) {
-        await course.enrolledStudents.push(userId);
+      if (
+        !course.enrolledStudents.some(
+          (id) => id.toString() === userId.toString(),
+        )
+      ) {
+        course.enrolledStudents.push(userId);
         await course.save();
-      } 
+      }
 
-      return res.status(200).json({message:"Payment Verified and enrollment successful"})
-    }else{
-      return res.status(400).json({message:"Payment failed"})
+      return res
+        .status(200)
+        .json({ message: "Payment Verified and enrollment successful" });
+    } else {
+      return res.status(400).json({ message: "Payment failed" });
     }
-
   } catch (error) {
-    return res.status(500).json({message:`Internal Server Error During payment Verification ${error}`})
+    return res
+      .status(500)
+      .json({
+        message: `Internal Server Error During payment Verification ${error}`,
+      });
   }
 };

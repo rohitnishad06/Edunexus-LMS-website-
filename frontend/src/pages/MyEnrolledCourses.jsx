@@ -12,7 +12,7 @@ function MyEnrolledCourses() {
 
       {/* Back Button */}
       <FaArrowLeftLong
-        className="absolute top-[3%] md:top-[6%] left-[5%] w-[22px] cursor-pointer"
+        className="absolute top-[3%] md:top-[6%] left-[5%] w-[22px] h-[22px] text-black cursor-pointer"
         onClick={() => navigate("/")}
       />
 
