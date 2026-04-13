@@ -114,7 +114,9 @@ function Nav() {
               >
                 My Profile
               </span>
-              <span className="bg-black text-white px-[30px] py-[10px] rounded-2xl cursor-pointer hover:bg-gray-700">
+              <span className="bg-black text-white px-[30px] py-[10px] rounded-2xl cursor-pointer hover:bg-gray-700"
+              onClick={() => navigate("/mycourses")}
+              >
                 My Courses
               </span>
             </div>
@@ -166,7 +168,8 @@ function Nav() {
           My Profile
         </div>
 
-        <div className="w-[200px] h-[60px] border-2 border-white text-white bg-black flex items-center justify-center rounded-[10px] cursor-pointer">
+        <div className="w-[200px] h-[60px] border-2 border-white text-white bg-black flex items-center justify-center rounded-[10px] cursor-pointer"
+          onClick={() => navigate("/mycourses")}>
           My Courses
         </div>
 

@@ -1,11 +1,12 @@
 import uploadCloudinary from "../config/cloudinary.js";
 import userModel from "../model/userModel.js";
+import courseModel from "../model/courseModel.js";
 
 
 // GetCurrentUser 
 export const getCurrentUser = async(req,res) =>{
   try {
-    const user = await userModel.findById(req.userId).select("-password")
+    const user = await userModel.findById(req.userId).select("-password").populate("enrolledcourses");
     if(!user){
       return res.status(404).json({ message: "User not Found" });
     }

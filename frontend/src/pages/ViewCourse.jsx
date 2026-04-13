@@ -171,6 +171,7 @@ function ViewCourse() {
               ) : (
                 <button
                   className="bg-green-100 text-green-500 px-6 py-2 rounded hover:bg-green-200 mt-3 cursor-pointer"
+                  onClick={() => navigate(`/viewlecture/${courseId}`)}
                 >
                   Watch Now
                 </button>
@@ -211,11 +212,10 @@ function ViewCourse() {
                     lecture.isPreviewFree && setSelectedLecture(lecture)
                   }
                   disabled={!lecture.isPreviewFree}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg border transition-all duration-200 text-left ${
-                    lecture.isPreviewFree
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg border transition-all duration-200 text-left ${lecture.isPreviewFree
                       ? "hover:bg-gray-100 cursor-pointer border-gray-300"
                       : "cursor-not-allowed opacity-60 border-gray-200"
-                  } ${selectedLecture?.lectureTitle === lecture?.lectureTitle ? "bg-gray-100 border-gray-400" : ""}`}
+                    } ${selectedLecture?.lectureTitle === lecture?.lectureTitle ? "bg-gray-100 border-gray-400" : ""}`}
                 >
                   <span className="text-lg text-gray-700">
                     {lecture.isPreviewFree ? <FaPlayCircle /> : <FaLock />}
