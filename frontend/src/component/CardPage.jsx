@@ -32,7 +32,8 @@ function CardPage() {
             title={course.title}
             category={course.category}
             price={course.price}
-            id={course._id}
+            id={course._id} 
+            reviews={course.reviews}
           />
         ))}
       </div>

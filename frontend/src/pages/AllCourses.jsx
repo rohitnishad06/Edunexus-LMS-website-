@@ -218,6 +218,7 @@ function AllCourses() {
             category={course.category}
             price={course.price}
             id={course._id}
+            reviews={course.reviews}
           />
         ))}
       </main>

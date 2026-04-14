@@ -9,6 +9,7 @@ import CardPage from "../component/CardPage";
 import { useNavigate } from "react-router-dom";
 import About from "../component/About";
 import Footer from "../component/Footer";
+import ReviewPage from "../component/ReviewPage";
 
 function Home() {
   const navigate = useNavigate()
@@ -81,6 +82,7 @@ function Home() {
       <ExploreCourses />
       <CardPage/>
       <About />
+      <ReviewPage />
       <Footer />
     </div>
   );

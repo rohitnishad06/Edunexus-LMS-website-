@@ -33,7 +33,7 @@ export const getPublishedCourses = async (req, res) => {
   try {
     const courses = await courseModel
       .find({ isPublished: true })
-      .populate("lectures"); 
+      .populate("lectures reviews"); 
 
     if (!courses.length) {
       return res.status(404).json({ message: "Courses not found" });
