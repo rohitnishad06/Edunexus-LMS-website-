@@ -3,6 +3,7 @@ import { editCourse, getCourseById, createCourse, getPublishedCourses, getCreato
 import isAuth from "../middelware/isAuth.js";
 import {upload} from "../middelware/multer.js";
 import { get } from "mongoose";
+import { searchWithAi } from "../controller/searchController.js";
 
 const courseRouter = express.Router();
 
@@ -34,5 +35,11 @@ courseRouter.post("/editlecture/:lectureId", isAuth, upload.single("video"),edit
 
 courseRouter.delete("/removelecture/:lectureId",isAuth , removeLecture)
 
+//for search
+
+courseRouter.post("/search",searchWithAi)
+
 courseRouter.post("/creator", isAuth, getCreatorById)
+
+
 export default courseRouter;

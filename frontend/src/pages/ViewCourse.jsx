@@ -14,6 +14,7 @@ import { setUserData } from "../redux/userSlice";
 import { ClipLoader } from "react-spinners";
 
 
+
 function ViewCourse() {
   const navigate = useNavigate();
   const { courseId } = useParams();
@@ -161,6 +162,7 @@ function ViewCourse() {
   }
 
   const avgRating = calculateAvgReview(selectedCourse?.reviews);
+  
 
 
   return (
