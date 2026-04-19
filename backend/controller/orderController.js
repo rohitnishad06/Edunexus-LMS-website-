@@ -2,6 +2,7 @@ import razorpay from "razorpay";
 import dotenv from "dotenv";
 import courseModel from "../model/courseModel.js";
 import userModel from "../model/userModel.js";
+import crypto from "crypto";
 
 dotenv.config();
 
@@ -41,7 +42,22 @@ export const razorpayOrder = async (req, res) => {
 // razorpay for verifying the order
 export const verifyPayment = async (req, res) => {
   try {
-    const { courseId, userId, razorpay_order_id } = req.body;
+    const {
+      courseId,
+      userId,
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature,
+    } = req.body;
+
+    const generatedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+      .digest("hex");
+
+    if (generatedSignature !== razorpay_signature) {
+      return res.status(400).json({ message: "Invalid payment signature" });
+    }
 
     const orderInfo = await RazorPayInstance.orders.fetch(razorpay_order_id);
 
@@ -76,10 +92,8 @@ export const verifyPayment = async (req, res) => {
       return res.status(400).json({ message: "Payment failed" });
     }
   } catch (error) {
-    return res
-      .status(500)
-      .json({
-        message: `Internal Server Error During payment Verification ${error}`,
-      });
+    return res.status(500).json({
+      message: `Internal Server Error During payment Verification ${error}`,
+    });
   }
 };

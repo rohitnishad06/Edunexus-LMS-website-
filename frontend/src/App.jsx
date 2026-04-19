@@ -28,7 +28,7 @@ import SearchWithAi from './pages/SearchWithAi';
 
 function App() {
     useGetCurrentUser();
-    getCreateCourse();
+    getCreateCourse();  
     getPublishedCourse();
     getAllReviews();
 

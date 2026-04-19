@@ -13,8 +13,6 @@ import { toast } from "react-toastify";
 import { setUserData } from "../redux/userSlice";
 import { ClipLoader } from "react-spinners";
 
-
-
 function ViewCourse() {
   const navigate = useNavigate();
   const { courseId } = useParams();
@@ -29,14 +27,9 @@ function ViewCourse() {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const fetchCourseData = async () => {
-    courseData?.map((course) => {
-      if (course._id === courseId) {
-        dispatch(setSelectedCourse(course));
-        console.log(selectedCourse);
-        return null;
-      }
-    });
+  const fetchCourseData = () => {
+    const course = courseData?.find((course) => course._id === courseId);
+    if (course) dispatch(setSelectedCourse(course));
   };
 
   useEffect(() => {
@@ -58,9 +51,21 @@ function ViewCourse() {
     handleCreator();
   }, [selectedCourse]);
 
+  // course select
+  useEffect(() => {
+    fetchCourseData();
+  }, [courseId, courseData]);
+
+  // enrollment check (ONLY when userData is ready)
+  useEffect(() => {
+    if (userData) {
+      checkEnrollment();
+    }
+  }, [userData, courseId]);
+
   // verify course entrollment
   const checkEnrollment = () => {
-    const verify = userData?.enrolledCourses?.some(
+    const verify = userData?.enrolledcourses?.some(
       (c) =>
         (typeof c == "string" ? c : c._id).toString() === courseId?.toString(),
     );
@@ -102,10 +107,19 @@ function ViewCourse() {
               { ...response, userId, courseId },
               { withCredentials: true },
             );
+            const updatedUser = await axios.get(
+              serverUrl + "/api/user/getcurrentuser",
+              {
+                withCredentials: true,
+              },
+            );
+            dispatch(setUserData(updatedUser.data));
             setIsEnrolled(true);
             toast.success(verifyPayment.data.message);
           } catch (error) {
-            toast.error(error.response.data.message);
+            toast.error(
+              error?.response?.data?.message || "Payment verification failed.",
+            );
           }
         },
       };
@@ -118,26 +132,22 @@ function ViewCourse() {
     }
   };
 
-  // course select
-  useEffect(() => {
-    fetchCourseData();
-  }, [courseId, courseData]);
-
-  // enrollment check (ONLY when userData is ready)
-  useEffect(() => {
-    if (userData) {
-      checkEnrollment();
-    }
-  }, [userData, courseId]);
-
   const handleReview = async () => {
     setLoading(true);
     try {
-      const result = await axios.post(serverUrl + "/api/review/create-review", {
-        rating,
-        comment,
-        courseId
-      }, {withCredentials:true});
+      if (!isEnrolled) {
+        return toast.error("You must be enrolled to submit a review.");
+      }
+
+      const result = await axios.post(
+        serverUrl + "/api/review/create-review",
+        {
+          rating,
+          comment,
+          courseId,
+        },
+        { withCredentials: true },
+      );
       setLoading(false);
       toast.success("Review submitted successfully");
       console.log(result.data);
@@ -150,20 +160,17 @@ function ViewCourse() {
       setRating(0);
       setComment("");
     }
-  }
+  };
 
-
-  const calculateAvgReview = (reviews) =>{
-    if(!reviews || reviews.length === 0) {
-       return 0;
+  const calculateAvgReview = (reviews) => {
+    if (!reviews || reviews.length === 0) {
+      return 0;
     }
-    const total= reviews.reduce((sum, review) => sum + review.rating, 0);
+    const total = reviews.reduce((sum, review) => sum + review.rating, 0);
     return (total / reviews.length).toFixed(1);
-  }
+  };
 
   const avgRating = calculateAvgReview(selectedCourse?.reviews);
-  
-
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -191,9 +198,12 @@ function ViewCourse() {
             <div className="flex items-start flex-col justify-between">
               <div className="text-yellow-500 font-medium flex gap-2">
                 <span className="flex items-center justify-start gap-1">
-                  <FaStar />{avgRating}
+                  <FaStar />
+                  {avgRating}
                 </span>
-                <span className="text-gray-400">(1,200 Reviews)</span>
+                <span className="text-gray-400">
+                  ({selectedCourse?.reviews?.length || 0} Reviews)
+                </span>
               </div>
               <div className="text-lg font-semibold text-black">
                 <span className="text-xl font-semibold text-black">
@@ -298,17 +308,29 @@ function ViewCourse() {
           <div className="mb-4">
             <div className="flex gap-1 mb-2">
               {[1, 2, 3, 4, 5].map((star) => (
-                <FaStar key={star} onClick={() => setRating(star)} className={star <= rating ? "fill-amber-300" : "fill-gray-300"} />
-              ))
-              }
+                <FaStar
+                  key={star}
+                  onClick={() => setRating(star)}
+                  className={`cursor-pointer ${star <= rating ? "fill-amber-300" : "fill-gray-300"}`}
+                />
+              ))}
             </div>
-            <textarea onChange={(e)=>setComment(e.target.value)} value={comment}
+            <textarea
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
               className="w-full border border-gray-300 rounded-lg p-2"
               placeholder="Write your review here..."
               rows={3}
             />
-            <button className="bg-[black] text-white px-4 py-2 rounded hover:bg-gray-800 mt-3 cursor-pointer"  onClick={handleReview} >
-              {loading ? <ClipLoader size={30} color="white"/> : "Submit Review"}
+            <button
+              className="bg-[black] text-white px-4 py-2 rounded hover:bg-gray-800 mt-3 cursor-pointer"
+              onClick={handleReview}
+            >
+              {loading ? (
+                <ClipLoader size={30} color="white" />
+              ) : (
+                "Submit Review"
+              )}
             </button>
           </div>
         </div>
