@@ -277,7 +277,7 @@ function ViewCourse() {
           </div>
 
           <div className="bg-white w-full md:w-3/5 p-6 rounded-2xl shadow-lg border border-gray-200">
-            <div className="aspect-video w-full rounded-lg overflow-hidden mb-4 bg-black flex items-center justify-center">
+            <div className="aspect-video w-full rounded-lg overflow-hidden mb-4 bg-[#020e26] flex items-center justify-center">
               {selectedLecture?.videoUrl ? (
                 <video
                   src={selectedLecture.videoUrl}

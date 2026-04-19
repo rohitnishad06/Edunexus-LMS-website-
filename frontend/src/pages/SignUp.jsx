@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.jpeg";
 import google from "../assets/google.jpg";
 import { FaRegEye } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
@@ -146,7 +146,7 @@ function SignUp() {
 
           {/* BUTTON */}
           <button
-            className="w-[80%] h-[35px] bg-black text-white text-lg rounded-[5px] flex items-center justify-center"
+            className="w-[80%] h-[35px] bg-[#020e26] text-white text-lg rounded-[5px] flex items-center justify-center"
             onClick={handleSignup}
             disabled={loading}
           >
@@ -184,9 +184,8 @@ function SignUp() {
         </div>
 
         {/* RIGHT */}
-        <div className="w-[50%] h-full bg-black rounded-r-2xl hidden md:flex flex-col items-center justify-center">
-          <img src={logo} alt="logo" className="w-100 shadow-2xl" />
-          <span className="text-2xl text-white mt-2">VIRTUAL COURSES</span>
+        <div className="w-[50%] h-full bg-[#020e26] rounded-r-2xl hidden md:flex flex-col items-center justify-center">
+          <img src={logo} alt="logo" className="w-100 " />
         </div>
       </form>
     </div>

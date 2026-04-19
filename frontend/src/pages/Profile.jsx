@@ -26,7 +26,7 @@ function Profile() {
         <div className='flex flex-col items-center text-center'>
           {userData?.photoUrl ? <img src={userData?.photoUrl} className="w-24 h-24 rounded-full border-4 border-black object-cover  
           " alt=""/>:
-          <div className='w-24 h-24 rounded-full text-white flex items-center text-[30px] border-4 bg-black border-white'>
+          <div className='w-24 h-24 rounded-full text-white flex items-center text-[30px] border-4 bg-[#020e26] border-white'>
             <h2>{initial}</h2>
           </div>}
           <h2 className='text-2xl font-bold mt-4 text-gray-800'>{userData?.name || "User"}
@@ -53,7 +53,7 @@ function Profile() {
           </div>
         </div>
         <div className='mt-6 flex justify-center gap-4'>
-          <button className='px-5 py-2 rounded bg-black text-white active:bg-[#4b4b4b] cursor-pointer transition' onClick={()=>navigate("/edit-profile")}>
+          <button className='px-5 py-2 rounded bg-[#020e26] text-white active:bg-[#4b4b4b] cursor-pointer transition' onClick={()=>navigate("/edit-profile")}>
             Edit Profile
           </button>
         </div>

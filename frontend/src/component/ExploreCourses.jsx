@@ -23,7 +23,7 @@ function ExploreCourses() {
           goals.
         </p>
         <button
-          className="px-[20px] py-[10px] border-2 bg-black border-white text-white rounded-[10px] text-[18px] font-light flex gap-2 mt-[40px] cursor-pointer"
+          className="px-[20px] py-[10px] border-2 bg-[#020e26] border-white text-white rounded-[10px] text-[18px] font-light flex gap-2 mt-[40px] cursor-pointer"
           onClick={() => navigate("/allcourses")}
         >
           Explore Courses{" "}

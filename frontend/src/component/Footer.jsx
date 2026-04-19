@@ -1,16 +1,16 @@
 import React from "react";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.jpeg";
 import { useNavigate } from "react-router-dom";
 
 function Footer() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-black text-gray-300 py-10 px-6">
+    <div className="bg-[#020e26] text-gray-300 py-10 px-6">
       <div className="max-w-7xl mx-auto flex lg:items-center items-start justify-center gap-[40px] lg:gap-[150px] flex-col lg:flex-row">
         <div className="lg:w-[40%] md:w-[50%] w-[100%]">
           <img src={logo} alt="" className="h-10 mb-3 border-1 rounded-[5px]" />
-          <h2 className="text-xl font-bold text-white mb-3">Virtual Courses</h2>
+          <h2 className="text-xl font-bold text-white mb-3">EduNexus</h2>
           <p className="text-sm">
             AI-powered learning platform to help you grow smarter. Learn
             anything, anytime, anywhere.

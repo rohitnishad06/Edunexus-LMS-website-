@@ -46,7 +46,7 @@ const EditProfile = () => {
             <form action="" className='space-y-5' onSubmit={(e)=>e.preventDefault()}>
                 <div className='flex flex-col items-center text-center'>
                     {userData?.photoUrl ? <img src={userData?.photoUrl} className="w-24 h-24 rounded-full border-4 border-black object-cover " alt=""/>:
-                    <div className='w-24 h-24 rounded-full text-white flex items-center text-[30px] border-4 bg-black border-white'>
+                    <div className='w-24 h-24 rounded-full text-white flex items-center text-[30px] border-4 bg-[#020e26] border-white'>
                         <h2>{initial}</h2>
                     </div>}
                 </div>
@@ -82,7 +82,7 @@ const EditProfile = () => {
                     className='w-full mt-1 px-4 py-2 border border-gray-300 rounded-md resize-none focus:ring-2 focus:ring-black'  onChange={(e)=>setDescription(e.target.value)} value={description}/>
                 </div>
 
-                <button className='w-full bg-black active:bg-[#454545] text-white py-2 rounded-md font-medium transition cursor-pointer ' disabled={loading} onClick={handleEditProfile}>{loading ? <ClipLoader size={30} color="white"/> : "Save Changes"}</button>
+                <button className='w-full bg-[#020e26] active:bg-[#454545] text-white py-2 rounded-md font-medium transition cursor-pointer ' disabled={loading} onClick={handleEditProfile}>{loading ? <ClipLoader size={30} color="white"/> : "Save Changes"}</button>
             </form>
         </div>
     </div>

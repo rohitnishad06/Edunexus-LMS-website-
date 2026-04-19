@@ -65,7 +65,7 @@ function ViewLectures() {
         </div>
 
         {/* VIDEO BOX */}
-        <div className="aspect-video rounded-xl overflow-hidden border border-gray-300 mb-4 bg-black">
+        <div className="aspect-video rounded-xl overflow-hidden border border-gray-300 mb-4 bg-[#020e26]">
           {selectedLecture?.videoUrl ? (
             <video
               src={selectedLecture.videoUrl}

@@ -31,7 +31,7 @@ function CardPage() {
             thumbnail={course.thumbnail}
             title={course.title}
             category={course.category}
-            price={course.price}
+            price={`₹${course.price}`}
             id={course._id} 
             reviews={course.reviews}
           />

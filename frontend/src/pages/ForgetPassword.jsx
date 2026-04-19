@@ -103,7 +103,7 @@ const ForgetPassword = () => {
 
           <button
             onClick={sendOtp}
-            className="w-full bg-black text-white py-2 rounded cursor-pointer"
+            className="w-full bg-[#020e26] text-white py-2 rounded cursor-pointer"
           >
             {loading ? "Sending..." : "Send OTP"}
           </button>
@@ -136,7 +136,7 @@ const ForgetPassword = () => {
 
           <button
             onClick={verifyOtp}
-            className="w-full bg-black text-white py-2 rounded"
+            className="w-full bg-[#020e26] text-white py-2 rounded"
           >
             {loading ? "Verifying..." : "Verify OTP"}
           </button>
@@ -166,7 +166,7 @@ const ForgetPassword = () => {
 
           <button
             onClick={resetPassword}
-            className="w-full bg-black text-white py-2 rounded"
+            className="w-full bg-[#020e26] text-white py-2 rounded"
           >
             {loading ? "Updating..." : "Reset Password"}
           </button>

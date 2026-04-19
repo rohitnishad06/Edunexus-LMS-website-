@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.jpeg";
 import { serverUrl } from "../App";
 import { setUserData } from "../redux/userSlice";
 import { toast } from "react-toastify";
@@ -34,7 +34,7 @@ function Nav() {
   return (
     <>
       {/* ================= DESKTOP NAVBAR ================= */}
-      <div className="w-full h-[70px] fixed top-0 px-[20px] py-[10px] flex items-center justify-between bg-[#00000047] z-20">
+      <div className="w-full h-[70px] fixed top-0 px-[20px] py-[10px] flex items-center justify-between bg-[#020e26]/30 z-20">
 
         {/* Logo */}
         <div className="lg:w-[20%] w-[40%] lg:pl-[50px]">
@@ -104,7 +104,7 @@ function Nav() {
 
           {/* Profile Dropdown */}
           {showProfile && (
-            <div className="absolute top-[110%] right-0 flex flex-col gap-2 bg-white px-[15px] py-[10px] border-2 border-black rounded-md">
+            <div className="absolute top-[110%] right-40 flex flex-col gap-2 bg-white px-[15px] py-[10px] border-2 border-black rounded-md">
               <span
                 className="bg-black text-white px-[30px] py-[10px] rounded-2xl cursor-pointer hover:bg-gray-700"
                 onClick={() => {

@@ -54,7 +54,7 @@ function Dashboard() {
 
           <div className="text-center md:text-left space-y-1">
             <h1 className="text-2xl font-bold text-gray-800">
-              Welcome ,{userData?.name || "Educator"}{" "}
+              Welcome, {userData?.name || "Educator"}{" "}
             </h1>
             <h1 className="text-xl font-semibold text-gray-800">
               Total Earning : ₹{totalEarning.toLocaleString()}
@@ -64,7 +64,7 @@ function Dashboard() {
                 "Start Creating Courses for Your Students"}
             </p>
             <h1
-              className="px-[10px] text-center py-[10px] border-2 bg-black border-black text-white rounded-[10px] text-[15px] font-light flex items-center justify-center cursor-pointer"
+              className="px-[10px] text-center py-[10px] border-2 bg-[#020e26] border-black text-white rounded-[10px] text-[15px] font-light flex items-center justify-center cursor-pointer"
               onClick={() => navigate("/courses")}
             >
               Create Courses

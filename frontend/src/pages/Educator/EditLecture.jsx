@@ -87,7 +87,7 @@ function EditLecture(){
             </div>
 
             <div className='pt-4'>
-                <button className='w-full bg-black text-white py-3 rounded-md text-sm font-medium hover:bg-gray-700 transition ' disabled={loading} onClick={handleEditLecture}>{loading ? <ClipLoader size={20} color={"white"} /> : "Update Lecture"}</button>
+                <button className='w-full bg-[#020e26] text-white py-3 rounded-md text-sm font-medium hover:bg-gray-700 transition ' disabled={loading} onClick={handleEditLecture}>{loading ? <ClipLoader size={20} color={"white"} /> : "Update Lecture"}</button>
             </div>
         </div>
     </div>
