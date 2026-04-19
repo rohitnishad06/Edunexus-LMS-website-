@@ -251,6 +251,7 @@ function EditCourses() {
                 <option value="AI/ML">AI/ML</option>
                 <option value="Data Science">Data Science</option>
                 <option value="Data Analysis">Data Analysis</option>
+                <option value="Ai Tools">AI TOOLS</option>
                 <option value="DevOps">DevOps</option>
                 <option value="Others">Others</option>
               </select>

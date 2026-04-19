@@ -18,10 +18,10 @@ function About() {
         />
 
         {/* Video Card */}
-        <div className="absolute bottom-[10px] left-[70%] -translate-x-1/2 w-[40%]">
+        <div className="absolute bottom-[10px] left-[85%] -translate-x-1/2 w-[40%] shadow-xl/90 rounded-2xl">
           <video
             src={video}
-            className="w-full rounded-xl shadow-2xl border-[6px] border-white"
+            className="w-full h-[90%] rounded-xl shadow-2xl border-[2px] border-white"
             controls
           />
         </div>

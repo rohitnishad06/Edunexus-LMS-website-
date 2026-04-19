@@ -47,6 +47,7 @@ function CreateCourses() {
               <option value="AI/ML">AI/ML</option>
               <option value="Data Science">Data Science</option>
               <option value="Data Analysis">Data Analysis</option>
+              <option value="Data Analysis">Ai Tools</option>
               <option value="DevOps">DevOps</option>
               <option value="Others">Others</option>
             </select>

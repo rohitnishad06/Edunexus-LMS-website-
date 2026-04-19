@@ -124,7 +124,7 @@ function AllCourses() {
             <input
               type="checkbox"
               className="accent-black w-4 h-4 rounded-md"
-              value={"AI Tools"}
+              value={"Ai Tools"}
               onChange={toggleCategory}
             />
             AI Tools
@@ -176,7 +176,7 @@ function AllCourses() {
             <input
               type="checkbox"
               className="accent-black w-4 h-4 rounded-md"
-              value={"UI UX Designing"}
+              value={"UI/UX Designing"}
               onChange={toggleCategory}
             />
             UI UX Designing
