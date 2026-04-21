@@ -254,15 +254,6 @@ Once the application is running locally, follow these steps:
 
 ---
 
-### 🏪 For Shop Owners
-
-1. Create and upload courses
-2. Add videos and resources
-3. Manage enrolled students
-4. Update course content regularly
-
----
-
 ### 🔄 System Workflow
 
 - Student enrolls in a course
