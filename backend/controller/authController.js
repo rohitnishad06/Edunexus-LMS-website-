@@ -44,8 +44,8 @@ export const signUp = async (req, res) => {
     // Store token in an HTTP-only cookie (secure against XSS)
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // Set to true in production (HTTPS)
-      sameSite: "strict",
+      secure: true, // Set to true in production (HTTPS)
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
@@ -81,8 +81,8 @@ export const login = async (req, res) => {
     // Store token in cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -226,8 +226,8 @@ export const googleAuth = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
