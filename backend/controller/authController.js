@@ -39,7 +39,7 @@ export const signUp = async (req, res) => {
     });
 
     // Generate JWT token for authentication
-    let token = await genToken(user._id);
+    let token = genToken(user._id);
 
     // Return success response with user data
     return res.status(201).json({user, token});
@@ -67,7 +67,7 @@ export const login = async (req, res) => {
     }
 
     // Generate JWT token
-    let token = await genToken(user._id);
+    let token = genToken(user._id);
 
     // Return user data
     return res.status(200).json({user, token});
@@ -193,11 +193,11 @@ export const googleAuth = async (req, res) => {
     let user = await userModel.findOne({ email });
 
     if (!user) {
-      user = await userModel.create({ email, name, role });
+      user = await userModel.create({ email, name: name || "User", role: "student" });
     }
 
     // Generate JWT
-    let token = await genToken(user._id);
+    let token =  genToken(user._id);
 
     res.status(201).json({user, token});
   } catch (error) {

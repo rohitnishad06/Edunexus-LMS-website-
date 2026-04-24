@@ -35,11 +35,12 @@ Query: ${input}
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      model: "gemini-2.0-flash", // ✅ WORKING MODEL
       contents: prompt,
     });
 
-    const keyword = response.candidates[0].content.parts[0].text.trim();
+    const keyword = response.text.trim();
+
     const courses = await courseModel.find({
       isPublished: true,
       $or: [
@@ -49,7 +50,7 @@ Query: ${input}
         { category: { $regex: input, $options: "i" } },
         { level: { $regex: input, $options: "i" } },
       ],
-    }); 
+    });
 
     if (courses.length > 0) {
       return res.status(200).json(courses);
@@ -64,10 +65,8 @@ Query: ${input}
           { level: { $regex: keyword, $options: "i" } },
         ],
       });
-          return res.status(200).json(courses);
+      return res.status(200).json(courses);
     }
-
-
   } catch (error) {
     console.log("ERROR:", error);
     return res.status(500).json({ message: "Failed to search" });

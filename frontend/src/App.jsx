@@ -1,11 +1,10 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import axios from "axios";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-export const serverUrl = "https://edunexus-backend-w7x6.onrender.com";
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import Profile from "./pages/Profile";
@@ -28,13 +27,15 @@ import MyEnrolledCourses from "./pages/MyEnrolledCourses";
 import getAllReviews from "./customHooks/getAllReviews";
 import SearchWithAi from "./pages/SearchWithAi";
 
-function App() {
-  useGetCurrentUser();
-  getCreateCourse();
-  getPublishedCourse();
-  getAllReviews();
+export const serverUrl = import.meta.env.VITE_SERVER_URL;
 
+function App() {
   const { userData } = useSelector((state) => state.user);
+
+    useGetCurrentUser();
+    getCreateCourse();
+    getPublishedCourse();
+    getAllReviews();
 
   useEffect(() => {
     const interceptor = axios.interceptors.request.use((config) => {

@@ -19,7 +19,7 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin:"https://edunexus-frontend-23o3.onrender.com",
+  origin: process.env.CLIENT_URL,
   credentials:true
 }))
 

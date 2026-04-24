@@ -16,16 +16,16 @@ const isAuth = async (req, res, next) => {
     const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
 
 
-    if (!verifyToken) {
-      return res.status(403).json({ message: "User token is invalid" });
-    }
-
     req.userId = verifyToken.userId;
 
     next();
 
   } catch (error) {
-    return res.status(500).json({ message: `isAuth error: ${error.message}` });
+    if (error.name === "TokenExpiredError") {
+    return res.status(401).json({ message: "Token expired" });
+  }
+
+  return res.status(401).json({ message: "Invalid token" });
   }
 };
 

@@ -54,7 +54,7 @@ function SignUp() {
     try {
       const result = await axios.post(
         `${serverUrl}/api/auth/googleauth`,
-        {name:response.user.displayName, email:response.user.email,role }
+        {name:response.user.displayName, email:response.user.email, role}
       );
        localStorage.setItem("token", result.data.token);
       dispatch(setUserData(result.data.user))

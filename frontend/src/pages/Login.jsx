@@ -35,6 +35,7 @@ function Login() {
         { email, password }
       );
       localStorage.setItem("token", result.data.token);
+      console.log(result.data)
       dispatch(setUserData(result.data.user));
       navigate("/");
       toast.success("Login successful");
@@ -51,7 +52,7 @@ function Login() {
     try {
       const result = await axios.post(
         `${serverUrl}/api/auth/googleauth`,
-        { email: response.user.email }
+        { email: response.user.email, name: response.user.displayName}
       );
       localStorage.setItem("token", result.data.token);
       dispatch(setUserData(result.data.user));
