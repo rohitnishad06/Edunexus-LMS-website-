@@ -1,6 +1,6 @@
 import React from 'react'
 import {Navigate, Route , Routes } from 'react-router-dom';
-import Home from './pages/home';
+import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 export const serverUrl = "https://edunexus-backend-w7x6.onrender.com";
