@@ -9,9 +9,8 @@ const getAllReviews = () => {
   useEffect(() => {
     const allReviews = async () => {
         try {
-            const result = await axios.get(serverUrl + "/api/review/getreview ", {withCredentials:true});
+            const result = await axios.get(serverUrl + "/api/review/getreview");
             dispatch(setReviewData(result.data));
-            console.log(result.data);
         } catch (error) {
             console.error(error);
         }

@@ -32,12 +32,12 @@ function Login() {
     try {
       const result = await axios.post(
         `${serverUrl}/api/auth/login`,
-        { email, password },
-        { withCredentials: true },
+        { email, password }
       );
-      dispatch(setUserData(result.data));
-      toast.success("Login successful");
+      localStorage.setItem("token", result.data.token);
+      dispatch(setUserData(result.data.user));
       navigate("/");
+      toast.success("Login successful");
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
     } finally {
@@ -51,12 +51,12 @@ function Login() {
     try {
       const result = await axios.post(
         `${serverUrl}/api/auth/googleauth`,
-        { email: response.user.email },
-        { withCredentials: true },
+        { email: response.user.email }
       );
+      localStorage.setItem("token", result.data.token);
+      dispatch(setUserData(result.data.user));
       toast.success("Login successful");
       navigate("/");
-      dispatch(setUserData(result.data));
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
     }

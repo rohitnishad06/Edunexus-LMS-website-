@@ -24,8 +24,7 @@ const ForgetPassword = () => {
 
       const res = await axios.post(
         `${serverUrl}/api/auth/sendotp`,
-        { email },
-        { withCredentials: true }
+        { email }
       );
 
       toast.success(res.data.message);
@@ -47,8 +46,7 @@ const ForgetPassword = () => {
 
       const res = await axios.post(
         `${serverUrl}/api/auth/verifyotp`,
-        { email, otp },
-        { withCredentials: true }
+        { email, otp }
       );
 
       toast.success(res.data.message);
@@ -70,8 +68,7 @@ const ForgetPassword = () => {
 
       const res = await axios.post(
         `${serverUrl}/api/auth/resetpassword`,
-        { email, otp, newPassword },
-        { withCredentials: true }
+        { email, otp, newPassword }
       );
 
       toast.success(res.data.message);

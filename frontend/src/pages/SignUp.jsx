@@ -35,10 +35,10 @@ function SignUp() {
     try {
       const res = await axios.post(
         `${serverUrl}/api/auth/signup`,
-        { name, email, password, role },
-        { withCredentials: true },
+        { name, email, password, role }
       );
-      dispatch(setUserData(res.data));
+      localStorage.setItem("token", res.data.token);
+      dispatch(setUserData(res.data.user));
       toast.success("Signup successful");
       navigate("/");
     } catch (error) {
@@ -54,10 +54,10 @@ function SignUp() {
     try {
       const result = await axios.post(
         `${serverUrl}/api/auth/googleauth`,
-        {name:response.user.displayName, email:response.user.email,role },
-        { withCredentials: true }
+        {name:response.user.displayName, email:response.user.email,role }
       );
-      dispatch(setUserData(result.data))
+       localStorage.setItem("token", result.data.token);
+      dispatch(setUserData(result.data.user))
       toast.success("Signup successful");
       navigate("/");
       setLoading(false)

@@ -21,8 +21,7 @@ function CreateLecture() {
     const handlecreateLecture = async () => {
         setLoading(true);
         try{
-            const result = await axios.post(serverUrl + `/api/course/createlecture/${courseId}`, {lectureTitle}, {withCredentials: true});
-            console.log(result.data);
+            const result = await axios.post(serverUrl + `/api/course/createlecture/${courseId}`, {lectureTitle});
             setLoading(false);
             dispatch(setLectureData([...lectureData, result.data.lecture]));
             toast.success("Lecture added successfully");
@@ -37,8 +36,7 @@ function CreateLecture() {
     useEffect(() => {
         const getCourseLecture = async () => {
             try{
-                const result = await axios.get(serverUrl + `/api/course/courselecture/${courseId}`, {withCredentials: true});
-                console.log(result.data);
+                const result = await axios.get(serverUrl + `/api/course/courselecture/${courseId}`);
                 dispatch(setLectureData(result.data.lectures));
             }catch(error){
                 console.log(error);

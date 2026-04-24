@@ -8,15 +8,17 @@ const useGetCurrentUser = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) return;   // importan
+
     const fetchUser = async () => {
       try {
-        const result = await axios.get(`${serverUrl}/api/user/getcurrentuser`, {
-          withCredentials: true,
-        });
-        console.log(result.data)
+        const result = await axios.get(`${serverUrl}/api/user/getcurrentuser`);
         dispatch(setUserData(result.data));
       } catch (error) {
         console.log(error);
+        localStorage.removeItem("token");  // invalid token cleanup
         dispatch(setUserData(null));
       }
     };

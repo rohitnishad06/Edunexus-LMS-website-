@@ -53,10 +53,8 @@ function SearchWithAi() {
     try {
       const result = await axios.post(
         serverUrl + "/api/course/search",
-        { input: query },
-        { withCredentials: true },
+        { input: query }
       );
-      console.log(result.data);
       setRecommendations(result.data);
       if (result.data.length > 0) {
         speak("These Are the top courses I found for you");
@@ -65,6 +63,7 @@ function SearchWithAi() {
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.response?.data?.message || "something wend wrong");
     }
   };
 

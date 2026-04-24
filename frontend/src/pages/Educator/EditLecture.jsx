@@ -27,8 +27,7 @@ function EditLecture(){
     const handleEditLecture = async () => {
         setLoading(true);
         try{
-            const result = await axios.post(serverUrl + `/api/course/editlecture/${lectureId}`, formData, {withCredentials: true});
-            console.log(result.data);
+            const result = await axios.post(serverUrl + `/api/course/editlecture/${lectureId}`, formData);
             dispatch(setLectureData([...lectureData , result.data]))
             setLoading(false);
             toast.success("Lecture updated successfully");
@@ -44,8 +43,7 @@ function EditLecture(){
     const removeLecture = async () => {
         setLoading1(true);
         try{
-            const result = await axios.delete(serverUrl + `/api/course/removelecture/${lectureId}`, {withCredentials: true});
-            console.log(result.data);
+            const result = await axios.delete(serverUrl + `/api/course/removelecture/${lectureId}`);
             setLoading1(false);
             navigate(`/createlecture/${courseId}`);
             toast.success("Lecture removed successfully");

@@ -38,10 +38,8 @@ function ViewCourse() {
         try {
           const result = await axios.post(
             serverUrl + "/api/course/creator",
-            { userId: selectedCourse?.creator },
-            { withCredentials: true },
+            { userId: selectedCourse?.creator }
           );
-          console.log(result.data);
           setCreatorData(result.data);
         } catch (error) {
           console.log(error);
@@ -87,10 +85,8 @@ function ViewCourse() {
     try {
       const orderData = await axios.post(
         serverUrl + "/api/order/razorpay-order",
-        { userId, courseId },
-        { withCredentials: true },
+        { userId, courseId }
       );
-      console.log(orderData);
 
       const option = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
@@ -100,18 +96,13 @@ function ViewCourse() {
         description: "Course Enrollment Payment",
         order_id: orderData.data.id,
         handler: async function (response) {
-          console.log("Razorpay Response", response);
           try {
             const verifyPayment = await axios.post(
               serverUrl + "/api/order/verifypayment",
-              { ...response, userId, courseId },
-              { withCredentials: true },
+              { ...response, userId, courseId }
             );
             const updatedUser = await axios.get(
-              serverUrl + "/api/user/getcurrentuser",
-              {
-                withCredentials: true,
-              },
+              serverUrl + "/api/user/getcurrentuser"
             );
             dispatch(setUserData(updatedUser.data));
             setIsEnrolled(true);
@@ -145,12 +136,10 @@ function ViewCourse() {
           rating,
           comment,
           courseId,
-        },
-        { withCredentials: true },
+        }
       );
       setLoading(false);
       toast.success("Review submitted successfully");
-      console.log(result.data);
       setRating(0);
       setComment("");
     } catch (error) {

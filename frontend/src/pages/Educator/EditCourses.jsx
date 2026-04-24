@@ -40,11 +40,9 @@ function EditCourses() {
   const getCourseById = async () => {
     try {
       const result = await axios.get(
-        serverUrl + `/api/course/getcourses/${courseId}`,
-        { withCredentials: true },
+        serverUrl + `/api/course/getcourses/${courseId}`
       );
       setSelectCourse(result.data);
-      console.log(result.data);
     } catch (error) {
       console.log(error);
     }
@@ -79,10 +77,8 @@ function EditCourses() {
     try {
       const result = await axios.post(
         serverUrl + `/api/course/editcourse/${courseId}`,
-        formData,
-        { withCredentials: true },
+        formData
       );
-      console.log(result.data);
 
       const updateData = result.data;
       if (updateData.isPublished) {
@@ -113,10 +109,8 @@ function EditCourses() {
     setLoading1(true);
     try {
       const result = await axios.delete(
-        serverUrl + `/api/course/remove/${courseId}`,
-        { withCredentials: true },
+        serverUrl + `/api/course/remove/${courseId}`
       );
-      console.log(result.data);
       const filterCourse = courseData.filter((c) => c._id !== courseId);
       dispatch(setCourseData(filterCourse));
       setLoading1(false);

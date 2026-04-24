@@ -13,8 +13,7 @@ const getCreateCourse  = () => {
         const creatorCourse = async () => {
             try {
                 const result = await axios.get(
-                    serverUrl + "/api/course/getcreator",
-                    { withCredentials: true }
+                    serverUrl + "/api/course/getcreator"
                 );
 
                 dispatch(setCreatorCourseData(result.data));

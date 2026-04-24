@@ -16,8 +16,7 @@ function CreateCourses() {
   const handleCreateCourse = async (e) => {
     setLoading(true);
     try{
-      const result = await axios.post(serverUrl + "/api/course/create", { title, category }, {withCredentials: true});
-      console.log(result.data);
+      const result = await axios.post(serverUrl + "/api/course/create", { title, category });
       navigate('/courses');
       setLoading(false);
       toast.success("Course created successfully");

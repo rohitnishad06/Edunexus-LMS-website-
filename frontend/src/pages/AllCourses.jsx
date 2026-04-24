@@ -10,7 +10,6 @@ import Card from "../component/Card";
 function AllCourses() {
   const navigate = useNavigate();
   const courseData = useSelector((state) => state.course?.courseData);
-  console.log(courseData);
   const [category, setCategory] = useState([]);
   const [filterCourses, setFilterCourses] = useState([]);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);

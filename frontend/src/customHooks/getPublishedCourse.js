@@ -14,8 +14,7 @@ const useGetPublishedCourse = () => {
         const getCourseData = async () => {
             try {
                 const result = await axios.get(
-                    serverUrl + "/api/course/getpublished",
-                    { withCredentials: true }
+                    serverUrl + "/api/course/getpublished"
                 );
                 dispatch(setCourseData(result.data));
             } catch (error) {

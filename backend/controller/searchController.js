@@ -40,7 +40,6 @@ Query: ${input}
     });
 
     const keyword = response.candidates[0].content.parts[0].text.trim();
-    console.log(keyword)
     const courses = await courseModel.find({
       isPublished: true,
       $or: [

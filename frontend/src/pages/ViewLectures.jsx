@@ -32,8 +32,7 @@ function ViewLectures() {
         try {
           const result = await axios.post(
             serverUrl + "/api/course/creator",
-            { userId: selectedCourse.creator },
-            { withCredentials: true },
+            { userId: selectedCourse.creator }
           );
           setCreatorData(result.data);
         } catch (error) {

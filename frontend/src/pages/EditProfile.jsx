@@ -27,7 +27,7 @@ const EditProfile = () => {
     const handleEditProfile = async () => {
         setLoading(true)
         try {
-            const result = await axios.post(serverUrl + "/api/user/profile",formData,{withCredentials:true})
+            const result = await axios.post(serverUrl + "/api/user/profile",formData)
             dispatch(setUserData(result.data))
             setLoading(false)
             navigate("/")

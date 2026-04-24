@@ -18,24 +18,17 @@ function Nav() {
   const [showProfile, setShowProfile] = useState(false);
   const [showHam, setShowHam] = useState(false);
 
-  const handleLogOut = async () => {
-    try {
-      await axios.get(`${serverUrl}/api/auth/logout`, {
-        withCredentials: true,
-      });
-      dispatch(setUserData(null));
-      toast.success("Logout Successfully");
-      navigate("/login");
-    } catch (error) {
-      toast.error(error?.response?.data?.message || "Logout failed");
-    }
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    dispatch(setUserData(null));
+    toast.success("Logout Successfully");
+    navigate("/login");
   };
 
   return (
     <>
       {/* ================= DESKTOP NAVBAR ================= */}
       <div className="w-full h-[70px] fixed top-0 px-[20px] py-[10px] flex items-center justify-between bg-[#020e26]/30 z-20">
-
         {/* Logo */}
         <div className="lg:w-[20%] w-[40%] lg:pl-[50px]">
           <img
@@ -48,32 +41,30 @@ function Nav() {
 
         {/* Desktop Menu */}
         <div className="w-[40%] lg:flex items-center justify-center gap-4 hidden relative">
-
           {/* Profile Icon */}
           {!userData && (
             <IoPersonCircle
               className="w-[50px] h-[50px] fill-black cursor-pointer"
-              onClick={() => setShowProfile(prev => !prev)}
+              onClick={() => setShowProfile((prev) => !prev)}
             />
           )}
 
-          {userData && (
-            userData.photoUrl ? (
+          {userData &&
+            (userData.photoUrl ? (
               <img
                 src={userData.photoUrl}
                 alt="profile"
                 className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer"
-                onClick={() => setShowProfile(prev => !prev)}
+                onClick={() => setShowProfile((prev) => !prev)}
               />
             ) : (
               <div
                 className="w-[50px] h-[50px] rounded-full text-white flex items-center justify-center text-[20px] border-2 bg-black border-white cursor-pointer"
-                onClick={() => setShowProfile(prev => !prev)}
+                onClick={() => setShowProfile((prev) => !prev)}
               >
                 {userData?.name?.slice(0, 1).toUpperCase()}
               </div>
-            )
-          )}
+            ))}
 
           {/* Dashboard */}
           {userData?.role === "educator" && (
@@ -114,8 +105,9 @@ function Nav() {
               >
                 My Profile
               </span>
-              <span className="bg-black text-white px-[30px] py-[10px] rounded-2xl cursor-pointer hover:bg-gray-700"
-              onClick={() => navigate("/mycourses")}
+              <span
+                className="bg-black text-white px-[30px] py-[10px] rounded-2xl cursor-pointer hover:bg-gray-700"
+                onClick={() => navigate("/mycourses")}
               >
                 My Courses
               </span>
@@ -147,12 +139,12 @@ function Nav() {
             src={userData.photoUrl}
             alt="profile"
             className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer"
-            onClick={() => setShowProfile(prev => !prev)}
+            onClick={() => setShowProfile((prev) => !prev)}
           />
         ) : (
           <div
             className="w-[50px] h-[50px] rounded-full text-white flex items-center justify-center text-[20px] border-2 bg-black border-white cursor-pointer"
-            onClick={() => setShowProfile(prev => !prev)}
+            onClick={() => setShowProfile((prev) => !prev)}
           >
             {userData?.name?.slice(0, 1).toUpperCase()}
           </div>
@@ -168,8 +160,10 @@ function Nav() {
           My Profile
         </div>
 
-        <div className="w-[200px] h-[60px] border-2 border-white text-white bg-black flex items-center justify-center rounded-[10px] cursor-pointer"
-          onClick={() => navigate("/mycourses")}>
+        <div
+          className="w-[200px] h-[60px] border-2 border-white text-white bg-black flex items-center justify-center rounded-[10px] cursor-pointer"
+          onClick={() => navigate("/mycourses")}
+        >
           My Courses
         </div>
 

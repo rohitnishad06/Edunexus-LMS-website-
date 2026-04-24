@@ -17,8 +17,7 @@ function Courses() {
   useEffect(() => {
         const creatorCourse = async () => {
             try{
-                const result = await axios.get(serverUrl + "/api/course/getcreator", {withCredentials: true});
-                console.log(result.data);
+                const result = await axios.get(serverUrl + "/api/course/getcreator");
                 dispatch(setCreatorCourseData(result.data));
             }catch(error){
                 console.log(error);
