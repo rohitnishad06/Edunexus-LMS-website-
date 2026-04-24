@@ -3,7 +3,7 @@ import {Navigate, Route , Routes } from 'react-router-dom';
 import Home from './pages/home';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
-export const serverUrl = "http://localhost:8000";
+export const serverUrl = "https://edunexus-backend-w7x6.onrender.com";
 import{ToastContainer} from "react-toastify";
 import { useSelector } from 'react-redux';
 import Profile from './pages/Profile'
