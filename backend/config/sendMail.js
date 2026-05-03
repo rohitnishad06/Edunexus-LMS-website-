@@ -1,33 +1,60 @@
-import nodemailer from "nodemailer";
+import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const sendMail = async (email, otp) => {
   try {
-    const transporter = nodemailer.createTransport({
-      service: "Gmail",
-auth: {
-  user: process.env.EMAIL,
-  pass: process.env.PASS,
-},
+    const response = await axios.post(
+      "https://api.brevo.com/v3/smtp/email",
+      {
+        sender: {
+          name: "EduNexus",
+          email: process.env.EMAIL, // Verified Brevo Email
+        },
 
-    });
+        to: [
+          {
+            email: email,
+          },
+        ],
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: "Password Reset OTP",
-      html: `
-        <h2>Password Reset OTP</h2>
-        <p>Your OTP is:</p>
-        <h1>${otp}</h1>
-        <p>This OTP expires in 5 minutes.</p>
-      `,
-    };
+        subject: "Password Reset OTP",
 
-    await transporter.sendMail(mailOptions);
+        htmlContent: `
+          <div style="font-family: Arial; padding: 20px;">
+            
+            <h2>Password Reset OTP</h2>
+
+            <p>Your OTP is:</p>
+
+            <h1 style="color: blue;">
+              ${otp}
+            </h1>
+
+            <p>This OTP will expire in 5 minutes.</p>
+
+          </div>
+        `,
+      },
+
+      {
+        headers: {
+          "api-key": process.env.BREVO_API_KEY,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Email Sent Successfully:", response.data);
 
   } catch (error) {
-    console.log("Mail Error:", error);
-    throw error;
+    console.log(
+      "Brevo Mail Error:",
+      error.response?.data || error.message
+    );
+
+    throw new Error("Failed to send email");
   }
 };
 

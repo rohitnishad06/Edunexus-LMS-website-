@@ -85,7 +85,7 @@ function SearchWithAi() {
           <input
             type="text"
             className="flex-grow px-4 py-3 bg-transparent text-white outline-none"
-            placeholder="What do you wnat to Learn ? (e.g. AI, MERN, CLOUD...)"
+            placeholder="What do you want to Learn ? (e.g. AI, MERN, CLOUD...)"
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
